@@ -129,7 +129,7 @@ def subjects(request):
 def showdashboard(request):
     semester = database.child(mail).child('login').child('semester').get().val() 
     subjects = dict(database.child(mail).child('semester').child(semester).get().val()) 
-    sub = {'show':subjects['subjects']}  
+    sub = {'show':subjects['subjects'],'sem':semester}  
     template = loader.get_template('showdashboard.html')      
     return HttpResponse(template.render(sub,request))      
 
@@ -171,6 +171,6 @@ def viewtable(request):
             temp.append(timetable[day[i]][time[j]]) 
         data.update({day[i]:temp}) 
         i += 1 
-    data = {'show':data} 
+    data = {'show':data,'sem':semester} 
     return render(request,'viewtable.html',data)   
 

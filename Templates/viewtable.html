@@ -1,0 +1,28 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<div style="padding: 100px 200px;">
+    <h1>  --- view timetable --- </h1>
+  <table border="1px">
+    <th>Days</th>
+    <th>09 - 10</th>
+    <th>10 - 11</th>
+    <th>11 - 12</th>
+    <th>01 - 02</th>
+    <th>02 - 03</th>
+    <th>03 - 04</th>
+    <th>04 - 05</th>
+      
+  
+      {% for k,v in show.items %}
+      <tr>
+          <td> {{k}}</td>
+          {% for x in v %} 
+              <td> {{x}} </td> 
+          {% endfor %}
+      </tr>
+      {% endfor %}
+  </table>
+</div>
+{% endblock %}

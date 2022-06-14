@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Add Tags Input Box | CodingNepal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <!-- Unicons CDN Link for Icons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
+  </head>
+  <script 
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+  <style>
+
+
+.toast{
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    border-left: 6px solid #5bf440;
+    overflow: hidden;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+
+.toast.active{
+    transform: translateX(0%);
+}
+
+.toast .toast-content{
+    display: flex;
+    align-items: center;
+}
+
+.toast-content .check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    background-color: #43f440;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.toast-content .message{
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+
+.message .text{
+    font-size: 20px;
+    font-weight: 400;;
+    color: #666666;
+}
+
+.message .text.text-1{
+    font-weight: 600;
+    color: #333;
+}
+
+.toast .close{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.toast .close:hover{
+    opacity: 1;
+}
+
+.toast .progress{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+}
+
+.toast .progress:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #5bf440;
+}
+
+.progress.active:before{
+    animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+    100%{
+        right: 100%;
+    }
+}
+    /* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  min-height: 100vh;
+  background: #7d2aff;
+  overflow: hidden;
+}
+::selection{
+  color: #fff;
+  background: #5372F0;
+}
+.wrapper{
+  width: 496px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 25px 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.06);
+}
+.wrapper :where(.title, li, li i, .details){
+  display: flex;
+  align-items: center;
+}
+.title img{
+  max-width: 21px;
+}
+.title h2{
+  font-size: 21px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+.wrapper .content{
+  margin: 10px 0;
+}
+.content p{
+  font-size: 15px;
+}
+.content ul{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 7px;
+  margin: 12px 0;
+  border-radius: 5px;
+  border: 1px solid #a6a6a6;
+}
+.content ul  li{
+  color: #333;
+  margin: 4px 3px;
+  list-style: none;
+  border-radius: 5px;
+  background: #F2F2F2;
+  padding: 5px 8px 5px 10px;
+  border: 1px solid #e3e1e1;
+}
+.content ul li i{
+  height: 20px;
+  width: 20px;
+  color: #808080;
+  margin-left: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #dfdfdf;
+  justify-content: center;
+}
+.content ul input{
+  flex: 1;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+#semester {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 7px;
+  font-size: 16px;
+  margin: 12px 0;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #a6a6a6;
+}
+#semester:focus {
+  outline: none;
+  border: 1px solid #a6a6a6;
+} 
+.wrapper .details{
+  justify-content: space-between;
+}
+.details button{
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 9px 15px;
+  border-radius: 5px;
+  background: #5372F0;
+  transition: background 0.3s ease;
+}
+.details button:hover{
+  background: #2c52ed;
+}
+#div 
+{
+  margin-top: 1%;
+  margin-left: 10%;
+}
+#h2 {
+  color: #000;
+}
+  </style>
+  
+  <body>
+    <div class="toast">
+      <div class="toast-content">
+          <i class="fas fa-solid fa-check check"></i>
+
+          <div class="message">
+              <span class="text text-1">Success</span>
+              <span class="text text-2">Your changes has been saved</span>
+          </div>
+      </div>
+      <i class="fa-solid fa-xmark close"></i>
+
+      <div class="progress"></div>
+  </div>
+    <div class="wrapper">
+      <div class="title">
+        <h2 id="h2">Add Subjects</h2>
+      </div>
+      
+        <div class="content">
+            <p>Press enter or add a comma after each Subject</p>
+            <input type="text" id="semester" placeholder="Enter current semester">
+            <ul><input type="text" spellcheck="false" id="tags"></ul>
+            <form action="subjects" method="post">
+            <input type="hidden" id="ip" value="" name="subjects">
+            <input type="hidden" id="ip1" value="" name="semester">
+            <div class="details">
+              <p><span>25</span> Subject are remaining</p>
+              <div id="div"> 
+                <button type="button" id="btn">Add Subjects</button>
+                <button type="submit">Submit</button>
+              </div>
+            </div>
+            
+          </div>
+      </form>
+      
+    </div>
+
+    
+
+  </body>
+  <script>
+const ul = document.querySelector("ul"),              
+input = document.querySelector("#tags"),                 
+tagNumb = document.querySelector(".details span");         
+
+let maxTags = 25,
+tags = [];
+
+countTags();
+createTag();
+
+function countTags(){
+    input.focus();
+    tagNumb.innerText = maxTags - tags.length;
+}
+
+function createTag(){
+    ul.querySelectorAll("li").forEach(li => li.remove());
+    tags.slice().reverse().forEach(tag =>{
+        let liTag = `<li>${tag} <i class="uit uit-multiply" onclick="remove(this, '${tag}')"></i></li>`;
+        ul.insertAdjacentHTML("afterbegin", liTag);
+    });
+    countTags();
+}
+
+function remove(element, tag){
+    let index  = tags.indexOf(tag);
+    tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+    element.parentElement.remove();
+    countTags();
+}
+
+function addTag(e){
+    if(e.key == "Enter"){  
+        let tag = e.target.value.replace(/\s+/g, ' ');
+        if(tag.length > 1 && !tags.includes(tag)){
+            if(tags.length < 25){
+                tag.split(',').forEach(tag => {
+                    tags.push(tag);
+                    createTag();
+                });
+            }
+        }
+        e.target.value = "";
+    }
+}
+
+input.addEventListener("keyup", addTag);
+
+// const removeBtn = document.querySelector("#btn");
+// removeBtn.addEventListener("click", () =>{
+    
+// });
+
+const button = document.querySelector("#btn"),
+      toast = document.querySelector(".toast")
+      closeIcon = document.querySelector(".close"),
+      progress = document.querySelector(".progress");
+
+      let timer1, timer2;
+
+      button.addEventListener("click", () => {
+
+        var i =0;
+    var s = '';
+    for(i=0;i<tags.length;i++)
+    {
+        s += tags[i] + ',';
+    }
+    var x = document.getElementById('semester').value;
+    document.getElementById('ip1').value = x;
+    document.getElementById('ip').value = s;
+    countTags();
+
+        toast.classList.add("active");
+        progress.classList.add("active");
+
+        timer1 = setTimeout(() => {
+            toast.classList.remove("active");
+        }, 5000); //1s = 1000 milliseconds
+
+        timer2 = setTimeout(() => {
+          progress.classList.remove("active");
+        }, 5300);
+      });
+      
+      closeIcon.addEventListener("click", () => {
+        toast.classList.remove("active");
+        
+        setTimeout(() => {
+          progress.classList.remove("active");
+        }, 300);
+
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      });
+
+
+  </script>
+</html>

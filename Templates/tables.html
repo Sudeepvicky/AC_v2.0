@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div>
+    <table border="1px">
+        <th>Subject</th>
+        <th>Attended periods</th>
+        <th>Total periods </th>
+    
+        {% for k,v in show.items %}
+        <tr>
+            <td> {{k}}</td>
+            {% for k1,v1 in v.items %} 
+                <td> {{v1}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}

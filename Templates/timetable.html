@@ -160,8 +160,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 .select {
     padding: 8px 12px;
+    font-size: 11px;
     color: #333333;
-    background-color: #eeeeee;
+    background-color: #e0dbf2;
     border: 1px solid #7d2aff;
     cursor: pointer;
     border-radius: 10px;
@@ -171,8 +172,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     outline: none;
     border: 1px solid #7d2aff;
 }
-.select option {
-    background: #eeeeee;
+.select option { 
+    background: #e0dbf2;
+}
+.select:valid { 
+    background: #daf4eb; 
+    border: 1px solid #a8c3ba;
 }
 #block {
     margin-top: 6%;
@@ -215,23 +220,23 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Monday</th>
                     <td>
-                        <select name="m1" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="m1" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="m2" class="select"> 
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="m2" class="select" required> 
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="m3" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="m3" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
@@ -239,32 +244,32 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                     </td>
                     <td rowspan="6"><b>LUNCH BREAK</b></td>
                     <td>
-                        <select name="m4" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="m4" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="m5" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="m5" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="m6" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="m6" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="m7" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="m7" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
@@ -274,55 +279,55 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Tuesday</th> 
                     <td>
-                        <select name="tu1" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="tu1" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="tu2" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="tu2" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="tu3" class="select"> 
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="tu3" class="select" required> 
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="tu4" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="tu4" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="tu5" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="tu5" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="tu6" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="tu6" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="tu7" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="tu7" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
@@ -332,55 +337,55 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Wednesday</th>
                     <td>
-                        <select name="w1" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="w1" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="w2" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="w2" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="w3" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="w3" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="w4" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="w4" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="w5" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="w5" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="w6" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="w6" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="w7" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="w7" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
@@ -390,55 +395,55 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Thrusday</th>
                     <td>
-                        <select name="th1" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="th1" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="th2" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="th2" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="th3" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="th3" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="th4" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="th4" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="th5" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="th5" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="th6" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="th6" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="th7" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="th7" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
@@ -448,55 +453,55 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Friday</th>
                     <td>
-                        <select name="f1" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="f1" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="f2" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="f2" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="f3" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="f3" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="f4" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="f4" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="f5" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="f5" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="f6" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="f6" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="f7" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="f7" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
@@ -506,55 +511,55 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Saturday</th> 
                     <td>
-                        <select name="s1" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="s1" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="s2" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="s2" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="s3" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="s3" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="s4" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="s4" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="s5" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="s5" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="s6" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="s6" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <select name="s7" class="select">
-                            <option disabled=" true" selected>Select period</option>
+                        <select name="s7" class="select" required>
+                            <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}

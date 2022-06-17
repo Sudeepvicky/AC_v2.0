@@ -1,4 +1,4 @@
-{% extends 'home.html' %}
+{% extends 'currsem.html' %}
 
 {% block content %}
 
@@ -17,7 +17,7 @@
   
       {% for k,v in show.items %}
       <tr>
-          <td> {{k}}</td>
+          <th> {{k}}</th>
           {% for x in v %} 
               <td> {{x}} </td> 
           {% endfor %}

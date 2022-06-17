@@ -1,4 +1,5 @@
 from ast import excepthandler
+from dataclasses import dataclass
 from distutils.archive_util import make_archive
 from distutils.command.config import config
 from email import message
@@ -9,7 +10,7 @@ from re import template
 import re
 from unicodedata import name
 from xml.sax.handler import DTDHandler
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect,render
 from django.template import loader 
 import pyrebase
@@ -30,12 +31,12 @@ firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 database = firebase.database() 
 
-mailid = ''
-mail = '' 
-psd = '' 
-sem = ''
+mail_id = ''
+mail = ''
+psd = ''
 uname = ''
-sub = [] 
+sem = '' 
+sub = {} 
 
 
 def login(request):
@@ -44,21 +45,17 @@ def login(request):
         password = request.POST['password']
         usr = list(user.split('.')) 
         usr = ''.join(usr)  
-        print(usr,password) 
+        usr_name = database.child(usr).child('login').child('username').get().val() 
+        global uname,psd,mail,mail_id 
+        uname = usr_name
+        mail = usr 
         mail_id = database.child(usr).child('login').child('email').get().val()
-        mail_password = database.child(usr).child('login').child('password').get().val() 
-        print(mail_id,mail_password) 
+        psd = database.child(usr).child('login').child('password').get().val() 
         if  mail_id == user:
-            if mail_password == password:
-                context = {
-                    'sudeep' : [user,password] 
-                } 
-                global mail
-                mail = usr 
-                global psd
-                psd = password
-                template = loader.get_template('home.html')   
-                return HttpResponse(template.render(context,request))
+            if psd == password:
+                data = {'usr':usr_name,'url':'semester'} 
+                template = loader.get_template('home.html')    
+                return HttpResponse(template.render(data,request)) 
             else:
                 messages.info(request,'Invalid password') 
                 return render(request,'login.html') 
@@ -79,16 +76,14 @@ def register(request):
         password = request.POST['password']
         usr = list(user.split('.')) 
         usr = ''.join(usr)
-        global mailid
-        mailid = user 
+        
         email = database.child(usr).child('login').child('email').get().val()
         if email != user:
-            global mail 
-            mail = usr 
-            global psd
+            global uname,mail,mail_id,psd 
+            uname = name 
+            mail_id = user 
+            mail = usr
             psd = password 
-            global uname
-            uname = name
             template = loader.get_template('subjects.html')
             return HttpResponse(template.render()) 
         else: 
@@ -111,26 +106,26 @@ def subjects(request):
         if len(subjects) != 0 and semester != '':
             subjects = list(subjects.split(','))
             subjects.pop() 
-            global sub 
             sub = {'sub':subjects,'sem':semester}
             sub['sub'].append('No period')  
-            global mail,mailid 
+            
+            global mail,mail_id 
             usr = list(mail.split('.')) 
             usr = ''.join(usr)
-            data = {'email':mailid,'password':psd,'username':uname ,'semester':semester} 
+            data = {'email':mail_id,'password':psd,'username':uname ,'semester':semester} 
             database.child(usr).child('login').set(data)
             data = {'attend':0,'total':0} 
             for i in range(len(subjects)): 
                 if subjects[i] != 'No period':
                     database.child(mail).child('semester').child(semester).child('subjects').child(subjects[i]).set(data)
             database.child(mail).child('semester').child(semester).child('subjects').child('total').set(data)  
-        return render(request,'timetable.html',sub) 
+            return render(request,'timetable.html',sub) 
 
-def showdashboard(request):
+def viewsubjects(request):
     semester = database.child(mail).child('login').child('semester').get().val() 
     subjects = dict(database.child(mail).child('semester').child(semester).get().val()) 
     sub = {'show':subjects['subjects'],'sem':semester}  
-    template = loader.get_template('showdashboard.html')      
+    template = loader.get_template('viewsubjects.html')      
     return HttpResponse(template.render(sub,request))      
 
 def shownotification(reuqest):
@@ -146,22 +141,21 @@ def timetable(request):
                 p = str(name[i] + str(j+1))
                 temp.append(request.POST[p]) 
             data.append(temp)
-        for i in data:
-            print(i) 
         day = ['monday','tuesday','wednesday','thrusday','friday','saturday']
         time = {'9-10':0,'10-11':0,'11-12':0,'1-2':0,'2-3':0,'3-4':0,'4-5':0} 
-        print('semster -> ',sem) 
         for i in range(len(data)):
             j = 0
             for k,v in time.items():
                 time[k] = data[i][j] 
                 j += 1   
             database.child(mail).child('semester').child(sem).child('timetable').child(day[i]).set(time) 
-        return render(request,'home.html') 
+        data = {'usr':uname} 
+        return render(request,'home.html',data)  
+
+
 def viewtable(request):
     semester = database.child(mail).child('login').child('semester').get().val() 
     timetable = dict(database.child(mail).child('semester').child(semester).child('timetable').get().val()) 
-    print(timetable) 
     day = ['monday','tuesday','wednesday','thrusday','friday','saturday']
     time = ['9-10','10-11','11-12','1-2','2-3','3-4','4-5'] 
     data = {}
@@ -171,6 +165,62 @@ def viewtable(request):
             temp.append(timetable[day[i]][time[j]]) 
         data.update({day[i]:temp}) 
         i += 1 
-    data = {'show':data,'sem':semester} 
+    global uname 
+    data = {'show':data,'sem':semester,'usr':uname} 
     return render(request,'viewtable.html',data)   
 
+
+
+def semester(request):
+    global uname 
+    if database.child(mail).child('semester').get().val() == None:
+        data = {'usr':uname}
+        return render(request,'semester.html',data)
+    subs = dict(database.child(mail).child('semester').get().val()) 
+    semester = database.child(mail).child('login').child('semester').get().val()
+    subs = list(subs.keys()) 
+    data = {'usr':uname,'sem':semester,'subs':subs} 
+    print('semesters -> ',subs) 
+    template = loader.get_template('semester.html')
+    return HttpResponse(template.render(data,request)) 
+
+def currsem(request):
+    semester = request.POST['sems']
+    database.child(mail).child('login').child('semester').set(semester)  
+    global uname
+    data = {'usr':uname,'sem':semester}  
+    template = loader.get_template('currsem.html') 
+    return HttpResponse(template.render(data,request)) 
+
+
+def homepage(request):
+    semester = database.child(mail).child('login').child('semester').get().val()
+    data = {'sem':semester,'usr':uname} 
+    return render(request,'home.html',data)
+
+def subjectspage(request):
+    return render(request,'subjects.html')  
+
+def contact(request):
+    data = {'usr':uname}  
+    template = loader.get_template('contact.html')
+    return HttpResponse(template.render(data,request))  
+
+
+def delsem(request):
+    del_sem = request.POST['delsem'] 
+    print('deleted semester : ',del_sem)  
+    global mail
+    global uname
+    database.child(mail).child('semester').child(del_sem).remove() 
+    if database.child(mail).child('semester').get().val() == None:
+        semester = database.child(mail).child('login').child('semester').get().val()
+        data = {'sem':semester,'usr':uname} 
+        return render(request,'semester.html') 
+    subs = dict(database.child(mail).child('semester').get().val()) 
+    semester = database.child(mail).child('login').child('semester').get().val()
+      
+    subs = list(subs.keys()) 
+    data = {'usr':uname,'sem':semester,'subs':subs} 
+    template = loader.get_template('semester.html')
+    return HttpResponse(template.render(data,request)) 

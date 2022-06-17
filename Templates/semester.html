@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+
+{% block content %} 
+<div id="parent">
+{% for x in subs %}
+<div class="cards">
+      <div class="center">
+        <h1>{{x}}</h1>  
+      </div> 
+      <div class="viewdiv">
+        <!-- foem 1 -->
+        <form action="#" method="post"> 
+          <input type="hidden" value="{{x}}" name="delsem"> 
+          <span class="del">
+              <button type="button" class="viewbtn1" onclick="change1('{{x}}')"> 
+                <span class="click" >Delete</span> 
+                <span style="color: red;" class="click" ><i class='bx bxs-trash-alt'></i></span>
+              </button>
+          </span> 
+        </form> 
+        <!-- form 2 -->
+        <form action="currsem" method="post">
+          <input type="hidden" value="{{x}}" name="sems"> 
+          <button type="submit" class="viewbtn" style="float: right;">
+            <span>View</span>
+            <span style="color: green;"><i class='bx bxs-right-arrow'></i></span>  
+          </button> 
+        </form>
+      </div>
+</div>
+{% endfor %}
+  <div class="cards" id="addbtn">
+    <div class="center">
+      <a href="subjectspage" style="font-size: 60px;" ><div class="icon"><i class="uil uil-plus" ></i></div></a>
+    </div>
+  </div> 
+
+</div>
+{% endblock %}

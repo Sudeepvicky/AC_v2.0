@@ -17,5 +17,7 @@ urlpatterns = [
     path('subjectspage',views.subjectspage,name='subjectspage'), 
     path('contact',views.contact,name='contact'),   
     path('delsem',views.delsem,name='delsem'), 
+    path('todo',views.todo,name='todo'), 
+    path('profilepage',views.profilepage,name='profilepage'),
 
 ]

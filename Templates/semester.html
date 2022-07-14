@@ -11,19 +11,15 @@
         <!-- foem 1 -->
         <form action="#" method="post"> 
           <input type="hidden" value="{{x}}" name="delsem"> 
-          <span class="del">
-              <button type="button" class="viewbtn1" onclick="change1('{{x}}')"> 
-                <span class="click" >Delete</span> 
-                <span style="color: red;" class="click" ><i class='bx bxs-trash-alt'></i></span>
+              <button type="button" class="viewbtn1" onclick="change1('{{x}}')" style="padding-left: 45px;">  
+                <span  class="click"><i class='bx bxs-trash-alt' ></i></span>  
               </button>
-          </span> 
-        </form> 
+        </form>  
         <!-- form 2 -->
-        <form action="currsem" method="post">
+        <form action="currsem" method="post"> 
           <input type="hidden" value="{{x}}" name="sems"> 
-          <button type="submit" class="viewbtn" style="float: right;">
-            <span>View</span>
-            <span style="color: green;"><i class='bx bxs-right-arrow'></i></span>  
+          <button type="submit" class="viewbtn"> 
+            <span class="viewani" ><i class='bx bx-chevrons-right' ></i></span>   
           </button> 
         </form>
       </div>

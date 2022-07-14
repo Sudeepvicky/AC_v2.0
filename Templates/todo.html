@@ -1,0 +1,58 @@
+{% extends 'home.html' %}
+{% block content%}
+
+<h1 style="text-align: center;color: #7d2ae8;transform: translateX(-60px);">Todo List</h1> 
+<div class="todocontainer">
+    <p style="text-align: center; color: #7d2ae8; padding-top: 10px;"><b>Maximum 6 taks</b></p>
+    <div id="newtask">
+        <input type="text" id="taskinfo" placeholder="Task to do ...">
+        <!-- <form action="#"> -->
+            <button id="add" type="button">Add</button>
+            <button id="save" type="submit">Save</button> 
+            <!-- <input type="hidden" id="taskslist">  -->
+        <!-- </form> -->
+        
+    </div>
+    {% for x in tasks %}
+        {% if forloop.last %}
+            <div class="task" style="width: 92%;margin-left:20px;margin-bottom: 0px;"> 
+                <span id="{{x}}">{{x}}</span>
+                <button class="del" onclick="deltaks(this)"><i class="fa fa-trash"></i></button>
+            </div>
+        {% else %}
+            <div class="task" style="width: 92%;margin-left:20px;"> 
+                <span id="{{x}}">{{x}}</span>
+                <button class="del" onclick="deltaks(this)"><i class="fa fa-trash"></i></button>
+            </div>
+        {% endif%} 
+    {% endfor %}
+    <div id="tasklist"></div>
+</div>
+
+
+<script>
+    function deltaks(x)
+    {
+        x.parentNode.remove()
+    } 
+    let todoele = document.getElementById("taskinfo")
+    let tasklist = document.getElementById("tasklist")
+
+    document.getElementById("add").onclick =function(){
+        if(todoele.value.length==0){
+            alert("Enter a task details")
+        } 
+        else{
+            tasklist.innerHTML = tasklist.innerHTML+`    
+            <div class="task"> 
+                <span id="${todoele.value}">${todoele.value}*</span> 
+                <button class="del" onclick="deltaks(this)"><i class="fa fa-trash"></i></button>
+            </div>`  
+            todoele.value = "";
+        }
+    }
+
+</script>
+
+
+{% endblock %} 

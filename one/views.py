@@ -54,7 +54,7 @@ def login(request):
         if  mail_id == user:
             if psd == password:
                 data = {'usr':usr_name,'url':'semester'} 
-                template = loader.get_template('home.html')    
+                template = loader.get_template('home.html')     
                 return HttpResponse(template.render(data,request)) 
             else:
                 messages.info(request,'Invalid password') 
@@ -224,3 +224,14 @@ def delsem(request):
     data = {'usr':uname,'sem':semester,'subs':subs} 
     template = loader.get_template('semester.html')
     return HttpResponse(template.render(data,request)) 
+
+def todo(request):
+    tasks = dict(database.child(mail).child('todo').get().val())
+    data = {'tasks':tasks.values(),'usr':uname} 
+    print(data) 
+    return render(request,'todo.html',data)  
+
+def profilepage(request):
+    data = {'usr':uname}
+    print(data)
+    return render(request,'profilepage.html',data)  

@@ -1,4 +1,4 @@
-from ast import excepthandler
+from ast import excepthandler 
 from dataclasses import dataclass
 from distutils.archive_util import make_archive
 from distutils.command.config import config
@@ -13,7 +13,7 @@ from xml.sax.handler import DTDHandler
 from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect,render
 from django.template import loader 
-import pyrebase
+import pyrebase 
 from requests import request 
 from django.contrib import messages
 
@@ -114,7 +114,7 @@ def subjects(request):
             usr = ''.join(usr)
             data = {'email':mail_id,'password':psd,'username':uname ,'semester':semester} 
             database.child(usr).child('login').set(data)
-            data = {'attend':0,'total':0} 
+            data = {'attend':0,'total':0,'percentage':0} 
             for i in range(len(subjects)): 
                 if subjects[i] != 'No period':
                     database.child(mail).child('semester').child(semester).child('subjects').child(subjects[i]).set(data)

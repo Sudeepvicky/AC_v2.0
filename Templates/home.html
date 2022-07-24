@@ -157,17 +157,17 @@
 
 /* ------------------------------------------------------------------------------------------------------  */
 
-   .icon{ 
-    text-align: center;
-    position: absolute;
+.icon{  
+  font-size: 40px;
+  text-align: center;
+  position: absolute;
   color: #7d2ae8;
-  height: 90px; 
-  width: 90px;
+  padding: 0px 10px;
   border-radius: 50%;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%); 
-  border: 2px dashed #7d2ae8;
+  border: 1.5px dashed #7d2ae8; 
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -381,8 +381,6 @@
 }
 .home-section{
   position: relative;
-  background: #E4E9F7;
-  height: 100vh;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
@@ -452,20 +450,22 @@ td {
 
 .cards {
   position: relative; 
-  text-align: center;
+  /* text-align: center; */
   margin-left: 10px;
   margin-top: 10px;
   float: left;
-  color: #315949;
+  color: #7d2aff;
+  font-weight: 500;
   width: 200px;
   height: 200px;
-  background-color: #e0dbf2; 
+  background-color: white; 
   border: 1px solid #e0dbf2; 
   border-radius: 10px ; 
 }
 .cards:hover {
   cursor: pointer; 
   border: 1px solid #7d2aff; 
+  transform: scale(1.02);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -486,13 +486,6 @@ td {
 }
 
 
-.center {
-  position: absolute; 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%); 
-}
-
 .viewdiv {
   position: relative;
 }
@@ -505,8 +498,8 @@ td {
   position: relative; 
   height: 40px;
   width: 50%;
-  text-align: center;
-  margin-top: 80%;
+  text-align: center; 
+  /* margin-top: 68%; */
   border: none;
   background: none;
 }
@@ -514,10 +507,10 @@ td {
 .viewbtn1 {
   float: left; 
   font-size: 18px;
-  position: relative; 
+  position: relative;
   height: 40px;
   width: 50%;
-  margin-top: 80%; 
+  /* margin-top: 68%;  */
   border: none;
   background: none;
 }
@@ -546,7 +539,7 @@ td {
   font-size: 30px;
   border: none;
   animation-name: example;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
   /* animation-fill-mode: forwards;  */
   animation-iteration-count: infinite;
   
@@ -566,9 +559,10 @@ td {
   font-size: 20px;
 }
 .click:hover {
-  font-size: 25px;
-  background-color: white;
-  padding: 2px 5px 2px 5px;
+  color: white;
+  font-size: 18px;
+  background-color: red;
+  padding: 2px 5px;
   border-radius: 50%;
 }
 
@@ -630,10 +624,11 @@ td {
 /* -------------------- todo list styles ------------- */
 
 .todocontainer{
-    position: absolute;
+    position: relative;
+    margin-top: 20px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translateX(-65%);
     width: 40%;
     min-width: 350px;
     background-color: white;
@@ -790,7 +785,7 @@ td {
     <div class="home-content">
       <i class='bx bx-menu' ></i>
       <span class="text">Sidebar</span>
-    </div>
+    </div>  
     <div class="side">
       {% block content%}
       {% endblock %} 
@@ -869,6 +864,20 @@ td {
      function change(id) 
      {
       document.getElementById('popup').style.display = 'none';
+     }
+     function alter(id)
+     {
+      console.log(id);  
+      document.getElementById(id).src   = "/media/semester3.gif"; 
+      document.getElementById(id).style.width = '150px';
+      document.getElementById(id).style.margin = '5px 23px 0px 23px'
+     }
+     function alter1(id)
+     {
+      console.log(id);  
+      document.getElementById(id).src   = "/media/semester2.gif"; 
+      document.getElementById(id).style.width = '180px';
+      document.getElementById(id).style.margin = '5px 10px 0px 10px'
      }
   </script>
 </body>

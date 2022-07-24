@@ -3,10 +3,10 @@
 {% block content %} 
 <div id="parent">
 {% for x in subs %}
-<div class="cards">
-      <div class="center">
-        <h1>{{x}}</h1>  
-      </div> 
+<div class="cards" onmouseover="alter('{{x}}')" onmouseout="alter1('{{x}}')" > 
+      <p style="text-align: center;">{{x}}</p>  
+      <hr>
+      <img src="/media/semester2.gif" width="180px" height="120px" style="margin: 5px 10px 0px 10px;" id="{{x}}"> 
       <div class="viewdiv">
         <!-- foem 1 -->
         <form action="#" method="post"> 
@@ -27,7 +27,7 @@
 {% endfor %}
   <div class="cards" id="addbtn">
     <div class="center">
-      <a href="subjectspage" style="font-size: 60px;" ><div class="icon"><i class="uil uil-plus" ></i></div></a>
+      <a href="subjectspage" class="icon"><div><i class="uil uil-plus" ></i></div></a>
     </div>
   </div> 
 

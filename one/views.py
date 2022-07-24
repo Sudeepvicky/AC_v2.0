@@ -57,11 +57,11 @@ def login(request):
                 template = loader.get_template('home.html')     
                 return HttpResponse(template.render(data,request)) 
             else:
-                messages.info(request,'Invalid password') 
-                return render(request,'login.html') 
-        else:
-            messages.info(request,'User not found')
-            return render(request,'login.html') 
+                data= {'msg':['Invalid password']} 
+                return render(request,'login.html',data)  
+        else: 
+            data = {'msg':['User not found']} 
+            return render(request,'login.html',data)  
 
 
 
@@ -87,15 +87,11 @@ def register(request):
             template = loader.get_template('subjects.html')
             return HttpResponse(template.render()) 
         else: 
-            msg  = {
-            'msg' : 'User already exists'
-            }
-            return render(request,'register.html',msg) 
+            data = {'error':['User already exists']} 
+            return render(request,'register.html',data)  
     else:
-        msg  = {
-            'msg' : 'User already exists'
-        }
-        return render(request,'register.html',msg) 
+        data = {'error':['User already exists']} 
+        return render(request,'register.html',data)  
 
 def subjects(request):
     if request.method == 'POST': 

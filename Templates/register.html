@@ -6,6 +6,7 @@
     <!--<title> Login and Registration Form in HTML & CSS | CodingLab </title>-->
     <link rel="stylesheet" href="style.css">
     <!-- Fontawesome CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
@@ -223,6 +224,30 @@ body{
 .sp {
   cursor: pointer;
 }
+
+/* -------------------------- error msg styling ---------------------------- */
+.error {
+  width: 100%;
+  height: 40px;
+  border: 1px solid red;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.error i {
+  float: right;
+  color: red;
+  size: 10px;
+}
+
+.error i:hover {
+  background: red;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer; 
+}
+
+
    </style>
 
 <body>
@@ -251,11 +276,12 @@ body{
             {% csrf_token %}
             <div class="input-boxes"> 
 
-              <div>
-                {% for msg in messages %}
-                <p style="color: red"> {{msg}} </p>
-                {% endfor %}
-            </div>
+              {% for i in msg %}
+                <div  class="error" id="error"> 
+                  <i class='bx bx-x' onclick="hide('error')" ></i>
+                  <p style="color: red;text-align: center;"> {{i}}</p> 
+                </div> 
+              {% endfor %}
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
                 <input type="text" placeholder="Enter your email" required name="user">
@@ -264,7 +290,7 @@ body{
                 <i class="fas fa-lock"></i>
                 <input type="password" placeholder="Enter your password" required name="password" id="password">
               </div>
-              <div class="text"><input type="checkbox" onclick="show()" class="sp"><label> Show Password</label></div>
+              <div class="text"><input type="checkbox" onclick="show('password')" class="sp"><label> Show Password</label></div>
               <div class="button input-box">
                 <input type="submit" value="Sumbit"> 
               </div>
@@ -279,9 +305,12 @@ body{
             {% csrf_token %} 
             
             <div class="input-boxes">
-              <div>
-                <p style="color: red"> {{msg}} </p> 
-              </div>
+              {% for msg in error %}
+                <div  class="error" id="error1"> 
+                  <i class='bx bx-x' onclick="hide('error1')" ></i>
+                  <p style="color: red;text-align: center;"> {{msg}}</p> 
+                </div> 
+              {% endfor %}
               <div class="input-box">
                 <i class="fas fa-user"></i>
                 <input type="text" placeholder="Enter your name" required name="name">
@@ -292,8 +321,9 @@ body{
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required name="password">
+                <input type="password" placeholder="Enter your password" required name="password" id="psd">
               </div>
+              <div class="text"><input type="checkbox" onclick="show('psd')" class="sp"><label> Show Password</label></div>
               <div class="button input-box">
                 <input type="submit" value="Sumbit" id="sub">
               </div>
@@ -326,6 +356,10 @@ body{
     {
       document.getElementById('f').style.display = 'block';
       document.getElementById('b').style.display = 'none';
+    }
+    function hide(id) 
+    {
+      document.getElementById(id).style.display = 'none'; 
     }
   </script>
 

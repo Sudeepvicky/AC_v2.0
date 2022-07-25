@@ -97,7 +97,7 @@ def subjects(request):
     if request.method == 'POST': 
         subjects = request.POST['subjects'] 
         semester = request.POST['semester']
-        global sem 
+        global sem,sub 
         sem = semester
         if len(subjects) != 0 and semester != '':
             subjects = list(subjects.split(','))
@@ -105,16 +105,16 @@ def subjects(request):
             sub = {'sub':subjects,'sem':semester}
             sub['sub'].append('No period')  
             
-            global mail,mail_id 
-            usr = list(mail.split('.')) 
-            usr = ''.join(usr)
-            data = {'email':mail_id,'password':psd,'username':uname ,'semester':semester} 
-            database.child(usr).child('login').set(data)
-            data = {'attend':0,'total':0,'percentage':0} 
-            for i in range(len(subjects)): 
-                if subjects[i] != 'No period':
-                    database.child(mail).child('semester').child(semester).child('subjects').child(subjects[i]).set(data)
-            database.child(mail).child('semester').child(semester).child('subjects').child('total').set(data)  
+            # global mail,mail_id 
+            # usr = list(mail.split('.')) 
+            # usr = ''.join(usr)
+            # data = {'email':mail_id,'password':psd,'username':uname ,'semester':semester} 
+            # database.child(usr).child('login').set(data)
+            # data = {'attend':0,'total':0,'percentage':0} 
+            # for i in range(len(subjects)): 
+            #     if subjects[i] != 'No period':
+            #         database.child(mail).child('semester').child(semester).child('subjects').child(subjects[i]).set(data)
+            # database.child(mail).child('semester').child(semester).child('subjects').child('total').set(data)  
             return render(request,'timetable.html',sub) 
 
 def viewsubjects(request):
@@ -129,6 +129,17 @@ def shownotification(reuqest):
     return HttpResponse(template.render()) 
 def timetable(request):
     if request.method == 'POST': 
+        global mail,mail_id,sem,sub 
+        usr = list(mail.split('.')) 
+        usr = ''.join(usr)  
+        data = {'email':mail_id,'password':psd,'username':uname ,'semester':sem} 
+        database.child(usr).child('login').set(data)
+        subjects = sub['sub'] 
+        data = {'attend':0,'total':0,'percentage':0} 
+        for i in range(len(subjects)): 
+            if subjects[i] != 'No period':
+                database.child(mail).child('semester').child(sem).child('subjects').child(subjects[i]).set(data)
+        database.child(mail).child('semester').child(sem).child('subjects').child('total').set(data)  
         data  = []
         name = ['m','tu','w','th','f','s']
         for i in range(6): 

@@ -20,7 +20,7 @@
     position: absolute;
     top: 25px;
     right: 30px;
-    border-radius: 12px;
+    border-radius: 12px; 
     background: #fff;
     padding: 20px 35px 20px 25px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
@@ -34,6 +34,7 @@
     transform: translateX(0%);
 }
 
+
 .toast .toast-content{
     display: flex;
     align-items: center;
@@ -46,6 +47,18 @@
     height: 35px;
     width: 35px;
     background-color: #43f440;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.toast-content .xmark{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    background-color: #ff0000;  
     color: #fff;
     font-size: 20px;
     border-radius: 50%;
@@ -104,6 +117,32 @@
     animation: progress 5s linear forwards;
 }
 
+/* ------------ error msg -------------- */
+.toast .progress1{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+}
+
+.toast .progress1:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: orange;
+}
+
+.progress1.deactive:before{
+    animation: progress 5s linear forwards;
+}
+
+/* ------------ endof error msg -------------- */
+
 @keyframes progress {
     100%{
         right: 100%;
@@ -111,7 +150,7 @@
 }
     /* Import Google Font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-*{
+*{ 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -215,12 +254,16 @@ body{
   cursor: pointer;
   padding: 9px 15px;
   border-radius: 5px;
-  background: #5372F0;
+  background: #5372F0; 
   transition: background 0.3s ease;
 }
 .details button:hover{
   background: #2c52ed;
 }
+.disable {
+  pointer-events: none; 
+}
+
 #div 
 {
   margin-top: 1%;
@@ -232,18 +275,18 @@ body{
   </style>
   
   <body>
-    <div class="toast">
+    <div class="toast" id="toast">
       <div class="toast-content">
-          <i class="fas fa-solid fa-check check"></i>
+          <i class="fas fa-solid fa-check check" id="i"></i>
 
           <div class="message">
-              <span class="text text-1">Success</span>
-              <span class="text text-2">Your changes has been saved</span>
+              <span class="text text-1" id="t1">Success</span>  
+              <span class="text text-2" id="t2">Your changes has been saved</span>
           </div>
       </div>
       <i class="fa-solid fa-xmark close"></i>
 
-      <div class="progress"></div>
+      <div class="progress progress1"></div>
   </div>
     <div class="wrapper">
       <div class="title">
@@ -261,7 +304,7 @@ body{
               <p><span>25</span> Subject are remaining</p>
               <div id="div"> 
                 <button type="button" id="btn">Add Subjects</button>
-                <button type="submit">Submit</button>
+                <button type="submit" id="sbt">Submit</button>
               </div>
             </div>
             
@@ -330,34 +373,76 @@ input.addEventListener("keyup", addTag);
 const button = document.querySelector("#btn"),
       toast = document.querySelector(".toast")
       closeIcon = document.querySelector(".close"),
-      progress = document.querySelector(".progress");
-
+      progress = document.querySelector(".progress"),
+      progress1 = document.querySelector(".progress1");
       let timer1, timer2;
-
+      var flag = 0;
       button.addEventListener("click", () => {
+        var sem = document.getElementById('semester').value;
+        if(tags.length == 0 || sem == '') 
+        {
+          document.getElementById('sbt').disabled = true;
+          document.getElementById('sbt').classList.add('disable');
+          document.getElementById('t1').innerHTML = 'Error';
+          document.getElementById('t2').innerHTML = 'Please fill the fields';
+          document.getElementById('toast').style.borderLeft = '6px solid orange';
+          document.getElementById('i').className = "fa-solid fa-xmark xmark";  
+          document.getElementById('i').style.color = 'white';
+          document.getElementById('i').style.borderRadius = '50%';
+          document.getElementById('i').style.background = 'orange' 
+          toast.classList.add("active");
+          if(flag == 1)
+          {
+            progress.classList.add('progress1');  
+          }
+          progress1.classList.add("deactive"); 
 
-        var i =0;
-    var s = '';
-    for(i=0;i<tags.length;i++)
-    {
-        s += tags[i] + ',';
-    }
-    var x = document.getElementById('semester').value;
-    document.getElementById('ip1').value = x;
-    document.getElementById('ip').value = s;
-    countTags();
-
-        toast.classList.add("active");
-        progress.classList.add("active");
-
-        timer1 = setTimeout(() => {
+          timer1 = setTimeout(() => {
             toast.classList.remove("active");
-        }, 5000); //1s = 1000 milliseconds
+          }, 5000); //1s = 1000 milliseconds
 
-        timer2 = setTimeout(() => {
-          progress.classList.remove("active");
-        }, 5300);
-      });
+          timer2 = setTimeout(() => {
+          progress1.classList.remove("deactive"); 
+          }, 5300);
+        }
+        else 
+        {
+          var x = progress.classList;
+          if (x.length == 3)
+          progress.classList.remove('deactive')
+          document.getElementById('sbt').disabled = false;
+          document.getElementById('sbt').classList.remove('disable');
+          document.getElementById('t1').innerHTML = 'Success';
+          document.getElementById('t2').innerHTML = 'Your changes has been saved';
+          document.getElementById('i').style.background = '#43f440'; 
+          document.getElementById('toast').style.borderLeft = '6px solid #5bf440';
+          document.getElementById('i').className = "fas fa-solid fa-check check"; 
+          var i =0;
+          var s = '';
+          for(i=0;i<tags.length;i++)
+          {
+              s += tags[i] + ',';
+          }
+          var x = document.getElementById('semester').value;
+          document.getElementById('ip1').value = x;
+          document.getElementById('ip').value = s;
+          countTags(); 
+          toast.classList.add("active");
+          progress.classList.remove("progress1");   
+          progress.classList.add("active");
+          flag = 1;
+          timer1 = setTimeout(() => {
+              toast.classList.remove("active");
+          }, 5000); //1s = 1000 milliseconds
+
+          timer2 = setTimeout(() => {
+            progress.classList.remove("active");
+          }, 5300);
+        }
+        
+
+        
+      });   
       
       closeIcon.addEventListener("click", () => {
         toast.classList.remove("active");

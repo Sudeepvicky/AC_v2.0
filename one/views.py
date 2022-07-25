@@ -1,4 +1,5 @@
-from ast import excepthandler 
+from ast import excepthandler
+from ctypes import POINTER 
 from dataclasses import dataclass
 from distutils.archive_util import make_archive
 from distutils.command.config import config
@@ -97,9 +98,11 @@ def subjects(request):
     if request.method == 'POST': 
         subjects = request.POST['subjects'] 
         semester = request.POST['semester']
-        global sem,sub 
-        sem = semester
-        if len(subjects) != 0 and semester != '':
+        global sem,sub,mail_id
+        sem = semester 
+        SEM  = dict(database.child(mail).child('semester').get().val())  
+        SEM = list(SEM.keys()) 
+        if len(subjects) != 0 and semester != '' and sem not in SEM:
             subjects = list(subjects.split(','))
             subjects.pop() 
             sub = {'sub':subjects,'sem':semester}
@@ -116,6 +119,9 @@ def subjects(request):
             #         database.child(mail).child('semester').child(semester).child('subjects').child(subjects[i]).set(data)
             # database.child(mail).child('semester').child(semester).child('subjects').child('total').set(data)  
             return render(request,'timetable.html',sub) 
+        else:
+            data = {'msg':['Semester already exist']} 
+            return render(request,'subjects.html',data)  
 
 def viewsubjects(request):
     semester = database.child(mail).child('login').child('semester').get().val() 
@@ -187,7 +193,6 @@ def semester(request):
     semester = database.child(mail).child('login').child('semester').get().val()
     subs = list(subs.keys()) 
     data = {'usr':uname,'sem':semester,'subs':subs} 
-    print('semesters -> ',subs) 
     template = loader.get_template('semester.html')
     return HttpResponse(template.render(data,request)) 
 
@@ -216,7 +221,6 @@ def contact(request):
 
 def delsem(request):
     del_sem = request.POST['delsem'] 
-    print('deleted semester : ',del_sem)  
     global mail
     global uname
     database.child(mail).child('semester').child(del_sem).remove() 
@@ -235,10 +239,8 @@ def delsem(request):
 def todo(request):
     tasks = dict(database.child(mail).child('todo').get().val())
     data = {'tasks':tasks.values(),'usr':uname} 
-    print(data) 
     return render(request,'todo.html',data)  
 
 def profilepage(request):
     data = {'usr':uname}
-    print(data)
     return render(request,'profilepage.html',data)  

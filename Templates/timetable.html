@@ -54,6 +54,18 @@ body{
     border-radius: 50%;
 }
 
+.toast-content .xmark{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    background-color: #ff0000;  
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
 .toast-content .message{
     display: flex;
     flex-direction: column;
@@ -107,6 +119,33 @@ body{
     animation: progress 5s linear forwards;
 }
 
+
+/* ------------ error msg -------------- */
+.toast .progress1{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+}
+
+.toast .progress1:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: orange;
+}
+
+.progress1.deactive:before{
+    animation: progress 5s linear forwards;
+}
+
+/* ------------ endof error msg -------------- */
+
 @keyframes progress {
     100%{
         right: 100%;
@@ -127,6 +166,10 @@ button{
 
 button:hover{
     background-color: #0e4bf1;
+}
+
+.disable {
+  pointer-events: none; 
 }
 
 .toast.active ~ button{
@@ -190,19 +233,19 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     </style>
     </head>
     <body>
-        <div class="toast">
+        <div class="toast" id="toast">
             <div class="toast-content">
-                <i class="fas fa-solid fa-check check"></i>
-    
+                <i class="fas fa-solid fa-check check" id="i"></i>
+      
                 <div class="message">
-                    <span class="text text-1">Success</span>
-                    <span class="text text-2">Your changes has been saved</span>
+                    <span class="text text-1" id="t1">Success</span>  
+                    <span class="text text-2" id="t2">Your changes has been saved</span>
                 </div>
             </div>
             <i class="fa-solid fa-xmark close"></i>
-    
-            <div class="progress"></div>
-        </div> 
+      
+            <div class="progress progress1"></div>
+        </div>
         <div id="#div">
             <form action="timetable" method="POST">
                 {% csrf_token %} 
@@ -220,7 +263,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Monday</th>
                     <td>
-                        <select name="m1" class="select" required>
+                        <select name="m1" class="select" required id="m1"> 
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -228,14 +271,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="m2" class="select" required> 
+                        <select name="m2" class="select" required id="m2"> 
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="m3" class="select" required>
+                        <select name="m3" class="select" required id="m3">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -244,7 +287,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                     </td>
                     <td rowspan="6"><b>LUNCH BREAK</b></td>
                     <td>
-                        <select name="m4" class="select" required>
+                        <select name="m4" class="select" required id="m4">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -252,7 +295,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="m5" class="select" required>
+                        <select name="m5" class="select" required id="m5">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -260,7 +303,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="m6" class="select" required>
+                        <select name="m6" class="select" required id="m6">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -268,7 +311,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="m7" class="select" required>
+                        <select name="m7" class="select" required id="m7">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -279,7 +322,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Tuesday</th> 
                     <td>
-                        <select name="tu1" class="select" required>
+                        <select name="tu1" class="select" required id="tu1">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -287,14 +330,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="tu2" class="select" required>
+                        <select name="tu2" class="select" required id="tu2">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="tu3" class="select" required> 
+                        <select name="tu3" class="select" required id="tu3"> 
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -302,7 +345,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="tu4" class="select" required>
+                        <select name="tu4" class="select" required id="tu4">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -310,7 +353,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="tu5" class="select" required>
+                        <select name="tu5" class="select" required id="tu5">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -318,7 +361,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="tu6" class="select" required>
+                        <select name="tu6" class="select" required id="tu6">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -326,7 +369,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="tu7" class="select" required>
+                        <select name="tu7" class="select" required id="tu7">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -337,7 +380,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Wednesday</th>
                     <td>
-                        <select name="w1" class="select" required>
+                        <select name="w1" class="select" required id="w1">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -345,14 +388,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="w2" class="select" required>
+                        <select name="w2" class="select" required id="w2">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="w3" class="select" required>
+                        <select name="w3" class="select" required id="w3">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -360,7 +403,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="w4" class="select" required>
+                        <select name="w4" class="select" required id="w4">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -368,7 +411,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="w5" class="select" required>
+                        <select name="w5" class="select" required id="w5">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -376,7 +419,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="w6" class="select" required>
+                        <select name="w6" class="select" required id="w6">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -384,7 +427,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="w7" class="select" required>
+                        <select name="w7" class="select" required id="w7">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -395,7 +438,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Thrusday</th>
                     <td>
-                        <select name="th1" class="select" required>
+                        <select name="th1" class="select" required id="th1">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -403,14 +446,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="th2" class="select" required>
+                        <select name="th2" class="select" required id="th2">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="th3" class="select" required>
+                        <select name="th3" class="select" required id="th3">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -418,7 +461,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="th4" class="select" required>
+                        <select name="th4" class="select" required id="th4">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -426,7 +469,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="th5" class="select" required>
+                        <select name="th5" class="select" required id="th5">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -434,7 +477,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="th6" class="select" required>
+                        <select name="th6" class="select" required id="th6">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -442,7 +485,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="th7" class="select" required>
+                        <select name="th7" class="select" required id="th7">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -453,7 +496,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Friday</th>
                     <td>
-                        <select name="f1" class="select" required>
+                        <select name="f1" class="select" required id="f1">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -461,14 +504,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="f2" class="select" required>
+                        <select name="f2" class="select" required id="f2">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="f3" class="select" required>
+                        <select name="f3" class="select" required id="f3">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -476,7 +519,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="f4" class="select" required>
+                        <select name="f4" class="select" required id="f4">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -484,7 +527,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="f5" class="select" required>
+                        <select name="f5" class="select" required id="f5">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -492,7 +535,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="f6" class="select" required>
+                        <select name="f6" class="select" required id="f6">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -500,7 +543,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="f7" class="select" required>
+                        <select name="f7" class="select" required id="f7">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -511,7 +554,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 <tr>
                     <th scope="row">Saturday</th> 
                     <td>
-                        <select name="s1" class="select" required>
+                        <select name="s1" class="select" required id="s1">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -519,14 +562,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="s2" class="select" required>
+                        <select name="s2" class="select" required id="s2">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
                             {% endfor %}
                         </select>
                     </td><td>
-                        <select name="s3" class="select" required>
+                        <select name="s3" class="select" required id="s3">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -534,7 +577,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="s4" class="select" required>
+                        <select name="s4" class="select" required id="s4">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -542,7 +585,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="s5" class="select" required>
+                        <select name="s5" class="select" required id="s5">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -550,7 +593,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="s6" class="select" required>
+                        <select name="s6" class="select" required id="s6">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -558,7 +601,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </select>
                     </td>
                     <td>
-                        <select name="s7" class="select" required>
+                        <select name="s7" class="select" required id="s7">
                             <option disabled=" true" selected value="">Select period</option>
                             {% for x in sub %}
                             <option> {{x}} </option>
@@ -569,7 +612,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
             </table>
             <div id="block">
                 <button type="button" id="btn">Add Timetable</button>
-                <button type="submit">Submit</button> 
+                <button type="submit" id="sbt" class="disable" disabled>Submit</button> 
             </div>
             </form>
         </div>
@@ -579,36 +622,160 @@ tr:nth-child(even) {background-color: #f2f2f2;}
         
 
         <script>
-            const button = document.querySelector("#btn"),
-      toast = document.querySelector(".toast")
-      closeIcon = document.querySelector(".close"),
-      progress = document.querySelector(".progress");
 
-      let timer1, timer2;
+                const button = document.querySelector("#btn"),
+                toast = document.querySelector(".toast")
+                closeIcon = document.querySelector(".close"),
+                progress = document.querySelector(".progress"),
+                progress1 = document.querySelector(".progress1");
+                let timer1, timer2;
+                var flag = 0;
+                
+                button.addEventListener("click", () => { 
+                var m1 = document.getElementById('m1').value;
+                var m2 = document.getElementById('m2').value;
+                var m3 = document.getElementById('m3').value;
+                var m4 = document.getElementById('m4').value;
+                var m5 = document.getElementById('m5').value;
+                var m6 = document.getElementById('m6').value;
+                var m7 = document.getElementById('m7').value; 
 
-      button.addEventListener("click", () => {
-        toast.classList.add("active");
-        progress.classList.add("active");
+                var tu1 = document.getElementById('tu1').value;
+                var tu2 = document.getElementById('tu2').value;
+                var tu3 = document.getElementById('tu3').value;
+                var tu4 = document.getElementById('tu4').value;
+                var tu5 = document.getElementById('tu5').value;
+                var tu6 = document.getElementById('tu6').value;
+                var tu7 = document.getElementById('tu7').value;  
 
-        timer1 = setTimeout(() => {
-            toast.classList.remove("active");
-        }, 5000); //1s = 1000 milliseconds
+                var w1 = document.getElementById('w1').value;
+                var w2 = document.getElementById('w2').value;
+                var w3 = document.getElementById('w3').value;
+                var w4 = document.getElementById('w4').value;
+                var w5 = document.getElementById('w5').value;
+                var w6 = document.getElementById('w6').value;
+                var w7 = document.getElementById('w7').value;  
 
-        timer2 = setTimeout(() => {
-          progress.classList.remove("active");
-        }, 5300);
-      });
-      
-      closeIcon.addEventListener("click", () => {
-        toast.classList.remove("active");
-        
-        setTimeout(() => {
-          progress.classList.remove("active");
-        }, 300);
+                var th1 = document.getElementById('th1').value;
+                var th2 = document.getElementById('th2').value;
+                var th3 = document.getElementById('th3').value;
+                var th4 = document.getElementById('th4').value;
+                var th5 = document.getElementById('th5').value;
+                var th6 = document.getElementById('th6').value;
+                var th7 = document.getElementById('th7').value;
 
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      });
+                var f1 = document.getElementById('f1').value;
+                var f2 = document.getElementById('f2').value;
+                var f3 = document.getElementById('f3').value;
+                var f4 = document.getElementById('f4').value;
+                var f5 = document.getElementById('f5').value;
+                var f6 = document.getElementById('f6').value;
+                var f7 = document.getElementById('f7').value;
+
+                var s1 = document.getElementById('s1').value;
+                var s2 = document.getElementById('s2').value;
+                var s3 = document.getElementById('s3').value;
+                var s4 = document.getElementById('s4').value;
+                var s5 = document.getElementById('s5').value;
+                var s6 = document.getElementById('s6').value;
+                var s7 = document.getElementById('s7').value;
+                
+                var flag = true;
+
+                if(
+                    m1 == '' || m2 =='' || m3 == '' || m4 == '' || m5 == '' || m6 == '' || m7 == '' || 
+                    tu1 == '' || tu2 =='' || tu3 == '' || tu4 == '' || tu5 == '' || tu6 == '' || tu7 == '' || 
+                    w1 == '' || w2 =='' || w3 == '' || w4 == '' || w5 == '' || w6 == '' || w7 == '' || 
+                    th1 == '' || th2 =='' || th3 == '' || th4 == '' || th5 == '' || th6 == '' || th7 == '' || 
+                    f1 == '' || f2 =='' || f3 == '' || f4 == '' || f5 == '' || f6 == '' || f7 == '' || 
+                    s1 == '' || s2 =='' || s3 == '' || s4 == '' || s5 == '' || s6 == '' || s7 == '' 
+                  )    flag = false;
+                console.log(m1);
+                console.log(m2);
+                console.log(m3);
+                console.log(m4);
+                console.log(m5);
+                console.log(m6);
+                console.log(m7); 
+                console.log(flag);
+
+
+                if(!flag)  
+                {
+                        document.getElementById('sbt').disabled = true;
+                        document.getElementById('sbt').classList.add('disable');
+                        document.getElementById('t1').innerHTML = 'Error';
+                        document.getElementById('t2').innerHTML = 'Please fill the fields';
+                        document.getElementById('toast').style.borderLeft = '6px solid orange';
+                        document.getElementById('i').className = "fa-solid fa-xmark xmark";  
+                        document.getElementById('i').style.color = 'white';
+                        document.getElementById('i').style.borderRadius = '50%';
+                        document.getElementById('i').style.background = 'orange' 
+                        toast.classList.add("active");
+                        if(flag == 1)
+                        {
+                            progress.classList.add('progress1');  
+                        }
+                        progress1.classList.add("deactive"); 
+
+                        timer1 = setTimeout(() => {
+                            toast.classList.remove("active");
+                        }, 5000); //1s = 1000 milliseconds
+
+                        timer2 = setTimeout(() => {
+                        progress1.classList.remove("deactive"); 
+                        }, 5300);
+                }
+                else 
+                { 
+                        console.log('else block') 
+                        var x = progress.classList;
+                        if (x.length == 3)
+                        progress.classList.remove('deactive')
+                        console.log(x) 
+                        document.getElementById('sbt').disabled = false;
+                        document.getElementById('sbt').classList.remove('disable');
+                        document.getElementById('t1').innerHTML = 'Success';
+                        document.getElementById('t2').innerHTML = 'Your changes has been saved';
+                        document.getElementById('i').style.background = '#43f440'; 
+                        document.getElementById('toast').style.borderLeft = '6px solid #5bf440';
+                        document.getElementById('i').className = "fas fa-solid fa-check check"; 
+                        // var i =0;
+                        // var s = '';
+                        // for(i=0;i<tags.length;i++)
+                        // {
+                        //     s += tags[i] + ',';
+                        // }
+                        // var x = document.getElementById('semester').value;
+                        // document.getElementById('ip1').value = x;
+                        // document.getElementById('ip').value = s;
+                        // countTags(); 
+                        toast.classList.add("active");
+                        progress.classList.remove("progress1");   
+                        progress.classList.add("active");
+                        flag = 1;
+                        timer1 = setTimeout(() => {
+                            toast.classList.remove("active");
+                        }, 5000); //1s = 1000 milliseconds
+
+                        timer2 = setTimeout(() => {
+                            progress.classList.remove("active");
+                        }, 5300);
+                        }                
+            });   
+            
+            closeIcon.addEventListener("click", () => {
+                toast.classList.remove("active");
+                
+                setTimeout(() => {
+                progress.classList.remove("active");
+                }, 300);
+
+                clearTimeout(timer1);
+                clearTimeout(timer2);
+            });
+
+
         </script>
 
     </body>

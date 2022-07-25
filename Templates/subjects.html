@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>Add Tags Input Box | CodingNepal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <!-- Unicons CDN Link for Icons -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
@@ -272,6 +273,34 @@ body{
 #h2 {
   color: #000;
 }
+
+
+/* --------------------------------------------------------error msg styling ------------------------------------------------------- */
+
+.error {
+  margin-left: 10%;
+  float: right;
+  width: 50%;
+  height: 40px;
+  border: 1px solid red;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.error i {
+  float: right;
+  color: red;
+  size: 10px;
+}
+
+.error i:hover {
+  background: red;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer; 
+}
+
+
   </style>
   
   <body>
@@ -291,8 +320,13 @@ body{
     <div class="wrapper">
       <div class="title">
         <h2 id="h2">Add Subjects</h2>
+        {% for i in msg %}
+        <div  class="error" id="error"> 
+          <i class='bx bx-x' onclick="hide('error')" ></i>
+          <p style="color: red;text-align: center;"> {{i}}</p> 
+        </div> 
+      {% endfor %}
       </div>
-      
         <div class="content">
             <p>Press enter or add a comma after each Subject</p>
             <input type="text" id="semester" placeholder="Enter current semester" maxlength="16">
@@ -304,7 +338,7 @@ body{
               <p><span>25</span> Subject are remaining</p>
               <div id="div"> 
                 <button type="button" id="btn">Add Subjects</button>
-                <button type="submit" id="sbt">Submit</button>
+                <button type="submit" id="sbt" disabled class="disable">Submit</button>
               </div>
             </div>
             
@@ -455,6 +489,9 @@ const button = document.querySelector("#btn"),
         clearTimeout(timer2);
       });
 
-
+      function hide(id) 
+      { 
+        document.getElementById(id).style.display = 'none';
+      }
   </script>
 </html>

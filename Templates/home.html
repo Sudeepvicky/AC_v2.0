@@ -534,12 +534,14 @@ td {
 
 .viewbtn:hover .viewani {
   position: relative;
-  border-radius: 0%;
-  background-color: transparent;
-  font-size: 30px;
+  border-radius: 50%;
+  border: 1px solid aliceblue;
+  padding: 2px 7px 2px 7px;
+  background-color: aliceblue;
+  font-size: 20px;
   border: none;
   animation-name: example;
-  animation-duration: 0.8s;
+  animation-duration: 1s;
   /* animation-fill-mode: forwards;  */
   animation-iteration-count: infinite;
   
@@ -547,7 +549,7 @@ td {
 
 @keyframes example {
   from {left: 0px;} 
-  to {left: 25px; color: #00ff00;} 
+  to {left: 25px;} 
 }
 
 .delbtn {
@@ -634,6 +636,7 @@ td {
     background-color: white;
     max-height: 100%;
     border-radius: 10px;
+    border: 1.5px solid #e0dbf2; 
 }
 
 .todocontainer:hover {

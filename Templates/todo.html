@@ -13,20 +13,22 @@
         <!-- </form> -->
         
     </div>
-    {% for x in tasks %}
-        {% if forloop.last %}
-            <div class="task" style="width: 92%;margin-left:20px;margin-bottom: 0px;"> 
-                <span id="{{x}}">{{x}}</span>
-                <button class="del" onclick="deltaks(this)"><i class="fa fa-trash"></i></button>
-            </div>
-        {% else %}
-            <div class="task" style="width: 92%;margin-left:20px;"> 
-                <span id="{{x}}">{{x}}</span>
-                <button class="del" onclick="deltaks(this)"><i class="fa fa-trash"></i></button>
-            </div>
-        {% endif%} 
-    {% endfor %}
-    <div id="tasklist"></div>
+    <div  id="task"> 
+        {% for x in tasks %}
+            {% if forloop.last %}
+                <div class="task" style="width: 92%;margin-left:20px;"> 
+                    <span id="{{x}}">{{x}}</span>
+                    <button class="del" onclick="deltaks(this)"><i class="fa fa-trash"></i></button>
+                </div>
+            {% else %}
+                <div class="task" style="width: 92%;margin-left:20px;"> 
+                    <span id="{{x}}">{{x}}</span>
+                    <button class="del" onclick="deltaks(this)"><i class="fa fa-trash"></i></button>
+                </div>
+            {% endif%} 
+        {% endfor %}
+    </div>
+    <!-- <div id="tasklist"></div> -->
 </div>
 
 
@@ -36,7 +38,7 @@
         x.parentNode.remove()
     } 
     let todoele = document.getElementById("taskinfo")
-    let tasklist = document.getElementById("tasklist")
+    let tasklist = document.getElementById("task")
 
     document.getElementById("add").onclick =function(){
         if(todoele.value.length==0){
@@ -44,7 +46,7 @@
         } 
         else{
             tasklist.innerHTML = tasklist.innerHTML+`    
-            <div class="task"> 
+            <div class="task" style="width: 92%;margin-left:20px;" > 
                 <span id="${todoele.value}">${todoele.value}*</span> 
                 <button class="del" onclick="deltaks(this)"><i class="fa fa-trash"></i></button>
             </div>`  

@@ -1,5 +1,6 @@
 from ast import excepthandler
-from ctypes import POINTER 
+from ctypes import POINTER
+from ctypes.wintypes import PINT 
 from dataclasses import dataclass
 from distutils.archive_util import make_archive
 from distutils.command.config import config
@@ -54,7 +55,7 @@ def login(request):
         psd = database.child(usr).child('login').child('password').get().val() 
         if  mail_id == user:
             if psd == password:
-                data = {'usr':usr_name,'url':'semester'} 
+                data = {'usr':usr_name,'url':'semester'}  
                 template = loader.get_template('home.html')     
                 return HttpResponse(template.render(data,request)) 
             else:
@@ -100,9 +101,11 @@ def subjects(request):
         semester = request.POST['semester']
         global sem,sub,mail_id
         sem = semester 
-        SEM  = dict(database.child(mail).child('semester').get().val())  
-        SEM = list(SEM.keys()) 
-        if len(subjects) != 0 and semester != '' and sem not in SEM:
+        SEM  = database.child(mail).child('semester').get().val()
+        if SEM != None: 
+            SEM = dict(SEM)   
+            SEM = list(SEM.keys())  
+        if SEM == None or sem not in SEM: 
             subjects = list(subjects.split(','))
             subjects.pop() 
             sub = {'sub':subjects,'sem':semester}
@@ -127,6 +130,8 @@ def viewsubjects(request):
     semester = database.child(mail).child('login').child('semester').get().val() 
     subjects = dict(database.child(mail).child('semester').child(semester).get().val()) 
     sub = {'show':subjects['subjects'],'sem':semester}  
+    for k,v in sub['show'].items():
+        print(k,'-->',v) 
     template = loader.get_template('viewsubjects.html')      
     return HttpResponse(template.render(sub,request))      
 
@@ -138,14 +143,19 @@ def timetable(request):
         global mail,mail_id,sem,sub 
         usr = list(mail.split('.')) 
         usr = ''.join(usr)  
+        data = {'todo':{'task1':'sudeep','task2' :'chinnu'}} 
+        database.child(usr).set(data) 
         data = {'email':mail_id,'password':psd,'username':uname ,'semester':sem} 
         database.child(usr).child('login').set(data)
         subjects = sub['sub'] 
         data = {'attend':0,'total':0,'percentage':0} 
+        data1 = {'streak':0} 
+        database.child(mail).child('semester').child(sem).set(data1)  
         for i in range(len(subjects)): 
             if subjects[i] != 'No period':
                 database.child(mail).child('semester').child(sem).child('subjects').child(subjects[i]).set(data)
         database.child(mail).child('semester').child(sem).child('subjects').child('total').set(data)  
+        
         data  = []
         name = ['m','tu','w','th','f','s']
         for i in range(6): 
@@ -237,7 +247,7 @@ def delsem(request):
     return HttpResponse(template.render(data,request)) 
 
 def todo(request):
-    tasks = dict(database.child(mail).child('todo').get().val())
+    tasks = dict(database.child(mail).child('todo').get().val()) 
     data = {'tasks':tasks.values(),'usr':uname} 
     return render(request,'todo.html',data)  
 

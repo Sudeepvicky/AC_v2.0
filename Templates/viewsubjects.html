@@ -6,9 +6,9 @@
       <th>Subject</th>
       <th>Attended periods</th>
       <th>Total periods </th>
-  
+      <th>Percentages </th>
       {% for k,v in show.items %}
-      <tr>
+      <tr> 
         {% if k not in "total" %}
           <td> {{k}}</td>
           {% for k1,v1 in v.items %} 
@@ -18,15 +18,17 @@
       </tr>
       {% endfor %}
       {% for k,v in show.items %}
-      <tr>
-        {% if k in "total" %}
+      
+        {% if k in "total"  %}
+        <tr>
           <td> {{k}}</td>
           {% for k1,v1 in v.items %} 
               <td> {{v1}} </td> 
           {% endfor %}
+        </tr>
         {% endif %} 
-      </tr>
-      {% endfor %}
+      
+      {% endfor %} 
 
   </table>
 </div>

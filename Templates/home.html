@@ -645,15 +645,15 @@ td {
 
 #newtask{
     position: relative;
-    padding: 30px 20px;
+    padding:  5px 10px 10px 15px; 
     display: flex;
     justify-content: space-between;
 }
 
 #taskinfo{
-    width: 75%;
+    width: 75%;  
     height: 35px; 
-    border: 2px solid #d1d3d8;
+    border: 1px solid #d1d3d8;
     border-radius: 6px;
     color: #111115;
     font-weight: 400;
@@ -665,11 +665,10 @@ td {
 }
 
 #add , #save{
-    width: 15%;
     height: 35px;
     border-radius:5px;
     font-weight: 400;
-    margin-left: 5px;
+    margin-left: 3px;
     background-color: #7C4DFF;
     border: none;
     color: white;
@@ -690,6 +689,8 @@ td {
 }
 
 .task{
+    width: 93%;
+    margin-left:15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -698,7 +699,6 @@ td {
     margin-bottom: 9px;
     padding: 5px 10px;
     cursor: pointer;
-    width: 100%;
     border-radius: 5px;
     border: 1px solid #939697;
 }
@@ -711,7 +711,60 @@ td {
    
 }
 
+
+
 /* -------------------------- endof todo list style -------------------------- */
+
+
+/* ------------------------------ error popup styling -------------------------- */ 
+
+.error {
+  display: none;
+  width: 93%;
+  height: 40px;
+  margin: 10px 15px 0px 15px; 
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.error p {
+  padding: 9px 5px; 
+  color: red;
+  text-align: center;
+}
+
+
+.error .red {
+  margin-top: 3px;
+  margin-right: 3px;
+  float: right;
+  color: red;
+  size: 10px;
+}
+
+.error .red:hover { 
+  background: red;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer; 
+}
+.error .green {
+  margin-top: 3px;
+  margin-right: 3px;
+  float: right;
+  color: #00ff00; 
+  size: 10px;
+}
+.error .green:hover {  
+  background: #00ff00; 
+  color: white; 
+  border-radius: 50%;
+  cursor: pointer; 
+}
+
+/* -------------------- endof error popup styling ------------------  */ 
+
+
 
    </style>
 <body> 
@@ -868,6 +921,11 @@ td {
      {
       document.getElementById('popup').style.display = 'none';
      }
+
+     function hide(id) 
+    { 
+      document.getElementById(id).style.display = 'none';
+    }   
      
   </script>
 </body>

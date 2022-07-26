@@ -21,6 +21,7 @@ urlpatterns = [
     path('delsem',views.delsem,name='delsem'), 
     path('todo',views.todo,name='todo'), 
     path('profilepage',views.profilepage,name='profilepage'),
+    path('todosubmit',views.todosubmit,name='todosubmit'),
 
 ]
 

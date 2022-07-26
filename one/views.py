@@ -48,7 +48,7 @@ def login(request):
         usr = list(user.split('.')) 
         usr = ''.join(usr)  
         usr_name = database.child(usr).child('login').child('username').get().val() 
-        global uname,psd,mail,mail_id 
+        global uname,psd,mail,mail_id,sem 
         uname = usr_name
         mail = usr 
         mail_id = database.child(usr).child('login').child('email').get().val()
@@ -209,8 +209,12 @@ def semester(request):
 def currsem(request):
     semester = request.POST['sems']
     database.child(mail).child('login').child('semester').set(semester)  
-    global uname
-    data = {'usr':uname,'sem':semester}  
+    global uname,sem 
+    streak = database.child(mail).child('semester').child(semester).child('streak').get().val()
+    if int(streak) > 0:
+        data = {'usr':uname,'sem':semester,'streak':streak,'cls':'cls'}    
+    else:
+        data = {'usr':uname,'sem':semester,'streak':streak}   
     template = loader.get_template('currsem.html') 
     return HttpResponse(template.render(data,request)) 
 
@@ -247,8 +251,36 @@ def delsem(request):
     return HttpResponse(template.render(data,request)) 
 
 def todo(request):
-    tasks = dict(database.child(mail).child('todo').get().val()) 
-    data = {'tasks':tasks.values(),'usr':uname} 
+    tasks = database.child(mail).child('todo').get().val()
+    if tasks == None:
+        data = {'tasks':[],'usr':uname,'t':6}  
+    else:
+        tasks = dict(tasks) 
+        d = list(tasks.values())  
+        d = 6 - len(d)
+        data = {'tasks':tasks.values(),'usr':uname,'t':d} 
+    return render(request,'todo.html',data)  
+
+def todosubmit(request):
+    temp = 'task'
+    task_list = request.POST['taskslist']  
+    task_list = task_list.split(',')
+    task_list.pop() 
+    t = {}  
+    for i in range(len(task_list)):
+        if task_list[i][-1] == '*':
+            t.update({temp+str(i) : task_list[i][0:len(task_list[i])-1]}) 
+        else:
+            t.update({temp + str(i) : task_list[i]})  
+    database.child(mail).child('todo').set(t) 
+    tasks = database.child(mail).child('todo').get().val()
+    if tasks == None:
+        data = {'tasks':[],'usr':uname,'t':6}  
+    else:
+        tasks = dict(tasks) 
+        d = list(tasks.values())  
+        d = 6 - len(d)
+        data = {'tasks':tasks.values(),'usr':uname,'t':d} 
     return render(request,'todo.html',data)  
 
 def profilepage(request):

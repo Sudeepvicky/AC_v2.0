@@ -293,6 +293,22 @@ td {
   margin-left: 7%;
 }
 
+.streak {
+  color: grey;
+  position: absolute;
+  margin-left: 92%;
+}
+
+.cls  {
+  color: orange;
+  position: absolute;
+  margin-left: 92%;
+}
+
+#str {
+  position: absolute;
+  margin-top: 7px; 
+}
 
 
 
@@ -354,7 +370,9 @@ td {
     <div class="home-content">
       <i class='bx bx-menu' ></i>
       <span class="text">Sidebar</span>
+      <i class='bx bxs-hot streak {{cls}}' style="font-size: 30px;" ><i style="font-size: 19px;font-weight: 500;" id="str">{{streak}}</i></i> 
     </div>
+    <hr>
     <div class="side">
       {% block content%}
       {% endblock %} 

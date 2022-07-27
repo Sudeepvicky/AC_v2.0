@@ -22,6 +22,12 @@ urlpatterns = [
     path('todo',views.todo,name='todo'), 
     path('profilepage',views.profilepage,name='profilepage'),
     path('todosubmit',views.todosubmit,name='todosubmit'),
+    path('newpassword',views.newpassword,name='newpassword'),
+    path('add_sem_subjects',views.add_sem_subjects,name='add_sem_subjects'), 
+    path('add_sem_subjects',views.add_sem_subjects,name='add_sem_subjects'),  
+    path('add_subjects',views.add_subjects,name='add_subjects'),  
+    path('add_sem_timetable',views.add_sem_timetable,name='add_sem_timetable'),  
+
 
 ]
 

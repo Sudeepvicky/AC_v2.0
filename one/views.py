@@ -48,14 +48,14 @@ def login(request):
         usr = list(user.split('.')) 
         usr = ''.join(usr)  
         usr_name = database.child(usr).child('login').child('username').get().val() 
-        global uname,psd,mail,mail_id,sem 
+        global uname,psd,mail,mail_id,sem,psd
         uname = usr_name
         mail = usr 
         mail_id = database.child(usr).child('login').child('email').get().val()
         psd = database.child(usr).child('login').child('password').get().val() 
         if  mail_id == user:
             if psd == password:
-                data = {'usr':usr_name,'url':'semester'}  
+                data = {'usr':usr_name,'url':'semester'}   
                 template = loader.get_template('home.html')     
                 return HttpResponse(template.render(data,request)) 
             else:
@@ -95,7 +95,7 @@ def register(request):
         data = {'error':['User already exists']} 
         return render(request,'register.html',data)  
 
-def subjects(request):
+def subjects(request): 
     if request.method == 'POST': 
         subjects = request.POST['subjects'] 
         semester = request.POST['semester']
@@ -143,13 +143,11 @@ def timetable(request):
         global mail,mail_id,sem,sub 
         usr = list(mail.split('.')) 
         usr = ''.join(usr)  
-        data = {'todo':{'task1':'sudeep','task2' :'chinnu'}} 
-        database.child(usr).set(data) 
         data = {'email':mail_id,'password':psd,'username':uname ,'semester':sem} 
-        database.child(usr).child('login').set(data)
+        database.child(usr).child('login').set(data) 
         subjects = sub['sub'] 
         data = {'attend':0,'total':0,'percentage':0} 
-        data1 = {'streak':0} 
+        data1 = {'streak':0,'update_timetable':0}  
         database.child(mail).child('semester').child(sem).set(data1)  
         for i in range(len(subjects)): 
             if subjects[i] != 'No period':
@@ -227,6 +225,71 @@ def homepage(request):
 def subjectspage(request):
     return render(request,'subjects.html')  
 
+def add_sem_subjects(request):
+    return render(request,'add_sem_subjects.html') 
+
+def add_subjects(request): 
+    if request.method == 'POST': 
+        subjects = request.POST['subjects'] 
+        semester = request.POST['semester']
+        global sem,sub,mail_id
+        sem = semester 
+        SEM  = database.child(mail).child('semester').get().val()
+        if SEM != None: 
+            SEM = dict(SEM)   
+            SEM = list(SEM.keys())  
+        if SEM == None or sem not in SEM: 
+            subjects = list(subjects.split(','))
+            subjects.pop() 
+            sub = {'sub':subjects,'sem':semester}
+            sub['sub'].append('No period')  
+            
+            # global mail,mail_id 
+            # usr = list(mail.split('.')) 
+            # usr = ''.join(usr)
+            # data = {'email':mail_id,'password':psd,'username':uname ,'semester':semester} 
+            # database.child(usr).child('login').set(data)
+            # data = {'attend':0,'total':0,'percentage':0} 
+            # for i in range(len(subjects)): 
+            #     if subjects[i] != 'No period':
+            #         database.child(mail).child('semester').child(semester).child('subjects').child(subjects[i]).set(data)
+            # database.child(mail).child('semester').child(semester).child('subjects').child('total').set(data)  
+            return render(request,'add_sem_timetable.html',sub) 
+        else:
+            data = {'msg':['Semester already exist']} 
+            return render(request,'add_sem_subjects.html',data)   
+
+def add_sem_timetable(request):
+    if request.method == 'POST': 
+        global sem,sub  
+        subjects = sub['sub'] 
+        data = {'attend':0,'total':0,'percentage':0} 
+        data1 = {'streak':0,'update_timetable':0}  
+        database.child(mail).child('semester').child(sem).set(data1)  
+        for i in range(len(subjects)): 
+            if subjects[i] != 'No period':
+                database.child(mail).child('semester').child(sem).child('subjects').child(subjects[i]).set(data)
+        database.child(mail).child('semester').child(sem).child('subjects').child('total').set(data)  
+        
+        data  = []
+        name = ['m','tu','w','th','f','s']
+        for i in range(6): 
+            temp = [] 
+            for j in range(7):
+                p = str(name[i] + str(j+1))
+                temp.append(request.POST[p]) 
+            data.append(temp)
+        day = ['monday','tuesday','wednesday','thrusday','friday','saturday']
+        time = {'9-10':0,'10-11':0,'11-12':0,'1-2':0,'2-3':0,'3-4':0,'4-5':0} 
+        for i in range(len(data)):
+            j = 0
+            for k,v in time.items():
+                time[k] = data[i][j] 
+                j += 1   
+            database.child(mail).child('semester').child(sem).child('timetable').child(day[i]).set(time) 
+        data = {'usr':uname} 
+        return render(request,'home.html',data)  
+
 def contact(request):
     data = {'usr':uname}  
     template = loader.get_template('contact.html')
@@ -284,5 +347,33 @@ def todosubmit(request):
     return render(request,'todo.html',data)  
 
 def profilepage(request):
-    data = {'usr':uname}
-    return render(request,'profilepage.html',data)  
+    sem = database.child(mail).child('semester').get().val() 
+    if sem == None:
+        sem = 0     
+        data = {'usr':uname,'mail':mail_id,'password':psd,'sem':'Semester registered : '+str(sem)}
+    else:
+        sem = dict(sem) 
+        sem = list(sem.keys())
+        sem = len(sem) 
+        data = {'usr':uname,'mail':mail_id,'password':psd,'sem':'Semester registered : '+str(sem)} 
+    return render(request,'profilepage.html',data) 
+
+def newpassword(request): 
+    p = request.POST['newpassword']  
+    details = dict(database.child(mail).child('login').get().val()) 
+    details['password'] = p 
+    global psd
+    psd = p  
+    database.child(mail).child('login').set(details) 
+    sem = database.child(mail).child('semester').get().val() 
+    if sem == None:
+        sem = 0     
+        data = {'usr':uname,'mail':mail_id,'password':psd,'sem':'Semester registered : '+str(sem)}
+    else:
+        sem = dict(sem) 
+        sem = list(sem.keys())
+        sem = len(sem) 
+        data = {'usr':uname,'mail':mail_id,'password':psd,'sem':'Semester registered : '+str(sem)} 
+    return render(request,'profilepage.html',data) 
+
+

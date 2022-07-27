@@ -1,4 +1,52 @@
 {% extends 'home.html' %}
 {% block content %}
-<h1>Username : {{usr}}</h1>
+    <div class="profile">
+        <div class="profile_img">
+            <img src="/media/gifs/user.gif" width="150px" height="150px">
+        </div>
+        <br><br><br>
+        <div style="padding-bottom: 20px;">
+            <form action="#" method="post" class="form"> 
+                <i class='bx bxs-user'></i>  <input type="text" readonly value=" {{usr}} " style="width: 85%;">
+                <br><br>
+                <i class='bx bxs-lock-alt'></i> <input type="text" readonly value=" {{password}} " style="width: 85%;">
+                <div class="confirm_password" style="display: none;">
+                    <br>
+                    <img src="/media/images/password1.png" width="20px" height="20px" onclick="show1('change_psd1','img1')" id="img1" > <input type="password" placeholder="password" style="width: 85%;" id="change_psd1"> 
+                    <br>
+                </div>
+            </form>
+            <form action="#" method="post" class="form">
+                <i class='bx bxs-envelope'></i>  <input type="text" readonly value=" {{mail}}" style="width: 100%;">
+                <br><br>
+                <i class='bx bxs-chalkboard'></i> <input type="text" readonly value=" {{sem}} " style="width: 100%;" >  
+                <div class="confirm_password" style="display: none;"> 
+                    <br>
+                    <img src="/media/images/password1.png" width="20px" height="20px" onclick="show1('change_psd2','img2')" id="img2"> <input type="password" placeholder="confirm password" style="width: 100%;" id="change_psd2"> 
+                    <br>
+                </div>
+            </form>
+        </div>
+        <div>
+            <br><br><br><br class="confirm_password" style="display: none;"><br class="confirm_password" style="display: none;">
+            
+            <input type="checkbox" id="change_password" style="margin-right: 5px;" onclick="change_password()"> Change password
+
+            <form action="newpassword" method="post" style="float: right;" class="form">
+                <input type="hidden" name="newpassword" id="newpassword">   
+                <button class="confirm_password" style="display: none;background-color: grey;" type="submit" disabled id="disable_btn">Save</button>
+                <button class="confirm_password" style="margin-right: 10px;display: none;" onclick="psd_check()" type="button" >add</button> 
+            </form>
+            <br><br>
+            <div  class="error_psd" id="error_psd" style="display: none;width: 40%;float: left;"> 
+                <i class='bx bx-x red' onclick="hide('error_psd')" ></i>
+                <p style="color: red;text-align: center;" id="error_psd_msg">Password doesn't match</p> 
+            </div>  
+            <div  class="error_psd2" id="error_psd2" style="display: none;width: 45%;float: left;"> 
+                <i class='bx bx-x red' onclick="hide('error_psd2')" ></i> 
+                <p style="color: #00ff00;text-align: center;">Password added successfully</p> 
+            </div>
+            <br><br>
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'currsem.html' %} 
+
+{% block content %}
+<form action="update_sem_subjects" method="post">  
+  <div style="padding: 100px 200px;text-align: center;">    
+    <table> 
+      <h1 style="display: inline-block;color: #7d2ae8;">Update periods</h1>  
+        <th style="font-size: 18px;color: #0d75ec;">Subject</th>    
+        <th style="font-size: 18px;color: #0d75ec;">Attended periods</th>   
+        <th style="font-size: 18px;color: #0d75ec;">Total periods </th>       
+        {% for k,v in show.items %}    
+        <tr> 
+          {% if k != "total" %}
+            <td style="padding: 0px 40px;font-size: 16px;"> <b class="key"> {{k}} </b> </td>     
+            <td> <input type="text" name="{{k}}_attend"  id="{{k}}_attend" value="{{ v.attend }}" class="edit_subjects_input"></td> 
+            <td> <input type="text" name="{{k}}_total"  id="{{k}}_total" value="{{ v.total }}" class="edit_subjects_input"></td>      
+          {% endif %} 
+        </tr>
+        {% endfor %}
+        {% for k,v in show.items %}
+        
+          {% if k == "total"  %}
+          <tr>
+            <td style="font-size: 16px;">  <b> {{k}} </b></td>
+            {% for k1,v1 in v.items %} 
+                <td style="font-size: 16px;"> <b>{{v1}}</b> </td> 
+            {% endfor %}
+          </tr>
+          {% endif %} 
+        
+        {% endfor %} 
+
+    </table>
+    
+    <button type="submit" id="edit_time_table"  style="font-size: 16px; width: 150px;margin-top: 25px;margin-left: 15px;" >Save Changes</button>
+  </div>
+</form>
+
+
+
+{% endblock %}

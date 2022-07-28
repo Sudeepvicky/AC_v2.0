@@ -2,8 +2,11 @@
 
 {% block content %}
 
-<div style="padding: 100px 200px;">
-    <h1 style="text-align: center;">  {{sem}} : Timetable </h1>
+<form action="update_timetable" method="post"> 
+<div style="padding: 100px 200px;text-align: center;"> 
+    <h1 style="display: inline-block;">  {{sem}} : Timetable <button type="submit" id="edit_time_table"><i class='bx bxs-pencil'></i></button> </h1> 
+     
+      
   <table >
     <th>Days</th> 
     <th>09 - 10  </th>
@@ -25,4 +28,5 @@
       {% endfor %}
   </table>
 </div>
+</form>
 {% endblock %}

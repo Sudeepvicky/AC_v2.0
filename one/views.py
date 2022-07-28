@@ -129,9 +129,34 @@ def subjects(request):
 def viewsubjects(request):
     semester = database.child(mail).child('login').child('semester').get().val() 
     subjects = dict(database.child(mail).child('semester').child(semester).get().val()) 
-    sub = {'show':subjects['subjects'],'sem':semester}  
-    for k,v in sub['show'].items():
-        print(k,'-->',v) 
+    streak = database.child(mail).child('semester').child(semester).child('streak').get().val() 
+    data = {} 
+    for k,v in subjects['subjects'].items():
+        d1 = {}
+        for k1,v1 in v.items():
+            # if k1 != 'percentage':
+            d1.update({k1:v1}) 
+        data.update({k:d1}) 
+    
+    result = list(data.keys()) 
+    result.remove('total') 
+    attended_periods = 0
+    total_periods = 0 
+    for i in range(len(result)):  
+        x = database.child(mail).child('semester').child(semester).child('subjects').child(result[i]).child('attend').get().val() 
+        y = database.child(mail).child('semester').child(semester).child('subjects').child(result[i]).child('total').get().val() 
+        attended_periods += int(x)
+        total_periods += int(y) 
+    z = round( (float(attended_periods) / float(total_periods))*100.0 ,2 ) 
+    database.child(mail).child('semester').child(semester).child('subjects').child('total').child('attend').set(attended_periods)  
+    database.child(mail).child('semester').child(semester).child('subjects').child('total').child('total').set(total_periods)  
+    database.child(mail).child('semester').child(semester).child('subjects').child('total').child('percentage').set(z)  
+
+
+    if int(streak) > 0:
+        sub = {'show':data,'sem':semester,'streak':streak,'cls':'cls'}  
+    else:
+        sub = {'show':data,'sem':semester,'streak':streak}   
     template = loader.get_template('viewsubjects.html')      
     return HttpResponse(template.render(sub,request))      
 
@@ -187,7 +212,11 @@ def viewtable(request):
         data.update({day[i]:temp}) 
         i += 1 
     global uname 
-    data = {'show':data,'sem':semester,'usr':uname} 
+    streak = database.child(mail).child('semester').child(semester).child('streak').get().val() 
+    if int(streak) > 0:
+        data = {'show':data,'sem':semester,'usr':uname,'streak':streak,'cls':'cls'}
+    else:
+        data = {'show':data,'sem':semester,'usr':uname,'streak':streak} 
     return render(request,'viewtable.html',data)   
 
 
@@ -376,4 +405,249 @@ def newpassword(request):
         data = {'usr':uname,'mail':mail_id,'password':psd,'sem':'Semester registered : '+str(sem)} 
     return render(request,'profilepage.html',data) 
 
+def update_timetable(request):
+    semester = database.child(mail).child('login').child('semester').get().val() 
+    timetable = dict(database.child(mail).child('semester').child(semester).child('timetable').get().val()) 
+    day = ['monday','tuesday','wednesday','thrusday','friday','saturday']
+    time = ['9-10','10-11','11-12','1-2','2-3','3-4','4-5'] 
+    data = {}
+    for i in range(6):
+        temp = [] 
+        for j in range(7):
+            temp.append(timetable[day[i]][time[j]]) 
+        data.update({day[i]:temp}) 
+        i += 1  
+    global uname,sub
+    sem = database.child(mail).child('login').child('semester').get().val()
+    semester = sem 
+    sub = dict(database.child(mail).child('semester').child(sem).child('subjects').get().val())
+    sub = list(sub.keys()) 
+    sub.remove('total') 
+    for i in range(len(sub)):
+        sub[i] += '*'
+    sub.append('No period') 
+    m1 = data['monday'][0] 
+    m2 = data['monday'][1] 
+    m3 = data['monday'][2] 
+    m4 = data['monday'][3] 
+    m5 = data['monday'][4] 
+    m6 = data['monday'][5] 
+    m7 = data['monday'][6]  
 
+    tu1 = data['tuesday'][0] 
+    tu2 = data['tuesday'][1] 
+    tu3 = data['tuesday'][2] 
+    tu4 = data['tuesday'][3] 
+    tu5 = data['tuesday'][4] 
+    tu6 = data['tuesday'][5] 
+    tu7 = data['tuesday'][6]    
+
+    w1 = data['wednesday'][0] 
+    w2 = data['wednesday'][1] 
+    w3 = data['wednesday'][2] 
+    w4 = data['wednesday'][3] 
+    w5 = data['wednesday'][4] 
+    w6 = data['wednesday'][5] 
+    w7 = data['wednesday'][6]    
+
+    th1 = data['thrusday'][0] 
+    th2 = data['thrusday'][1] 
+    th3 = data['thrusday'][2] 
+    th4 = data['thrusday'][3] 
+    th5 = data['thrusday'][4] 
+    th6 = data['thrusday'][5] 
+    th7 = data['thrusday'][6] 
+
+    f1 = data['friday'][0] 
+    f2 = data['friday'][1] 
+    f3 = data['friday'][2] 
+    f4 = data['friday'][3] 
+    f5 = data['friday'][4] 
+    f6 = data['friday'][5] 
+    f7 = data['friday'][6] 
+
+    s1 = data['saturday'][0] 
+    s2 = data['saturday'][1] 
+    s3 = data['saturday'][2] 
+    s4 = data['saturday'][3] 
+    s5 = data['saturday'][4] 
+    s6 = data['saturday'][5] 
+    s7 = data['saturday'][6]    
+    data = {
+        'show':data,'sem':semester,'usr':uname,'sub':sub,'sem':semester,
+        'm1':m1,'m2':m2,'m3':m3,'m4':m4,'m5':m5,'m6':m6,'m7':m7,
+        'tu1':tu1,'tu2':tu2,'tu3':tu3,'tu4':tu4,'tu5':tu5,'tu6':tu6,'tu7':tu7,
+        'w1':w1,'w2':w2,'w3':w3,'w4':w4,'w5':w5,'w6':w6,'w7':w7, 
+        'th1':th1,'th2':th2,'th3':th3,'th4':th4,'th5':th5,'th6':th6,'th7':th7,
+        'f1':f1,'f2':f2,'f3':f3,'f4':f4,'f5':f5,'f6':f6,'f7':f7, 
+        's1':s1,'s2':s2,'s3':s3,'s4':s4,'s5':s5,'s6':s6,'s7':s7          
+    }   
+    return render(request,'update_timetable.html',data)   
+
+def update_timetable_subjects(request):
+    m = request.POST['monday']
+    tu = request.POST['tuesday']
+    w = request.POST['wednesday']
+    th = request.POST['thrusday']
+    f = request.POST['friday']
+    s = request.POST['saturday']
+    m = list(m.split(','))
+    tu = list(tu.split(','))
+    w = list(w.split(','))
+    th = list(th.split(','))
+    f = list(f.split(','))
+    s = list(s.split(','))
+    time = ['9-10','10-11','11-12','1-2','2-3','3-4','4-5']  
+
+    semester = database.child(mail).child('login').child('semester').get().val()
+
+    print('monday    -->',m)
+    print('tuesday   -->',tu)
+    print('wednesday -->',w)
+    print('thrusday  -->',th)
+    print('friday    -->',f)
+    print('saturday  -->',s)   
+    if len(m) != 0:
+        for i in range(len(m)):
+            if m[i] != '':
+                if m[i] == 'No period':
+                    d = m[i] 
+                else:
+                    d = m[i][0:len(m[i])-1]  
+                database.child(mail).child('semester').child(semester).child('timetable').child('monday').child(time[i]).set(d) 
+
+    if len(tu) != 0:
+        for i in range(len(tu)):
+            if tu[i] != '':
+                if tu[i] == 'No period':
+                    d = tu[i] 
+                else:
+                    d = tu[i][0:len(tu[i])-1] 
+                database.child(mail).child('semester').child(semester).child('timetable').child('tuesday').child(time[i]).set(d) 
+    
+    if len(w) != 0:
+        for i in range(len(w)):
+            if w[i] != '': 
+                if w[i] == 'No period':
+                    d = w[i] 
+                else:
+                    d = w[i][0:len(w[i])-1] 
+                database.child(mail).child('semester').child(semester).child('timetable').child('wednesday').child(time[i]).set(d) 
+
+    if len(th) != 0:
+        for i in range(len(th)):
+            if th[i] != '': 
+                if th[i] == 'No period':
+                    d = th[i] 
+                else:
+                    d = th[i][0:len(th[i])-1] 
+                database.child(mail).child('semester').child(semester).child('timetable').child('thrusday').child(time[i]).set(d) 
+    
+    if len(f) != 0:
+        for i in range(len(f)):
+            if f[i] != '': 
+                if f[i] == 'No period':
+                    d = f[i] 
+                else:
+                    d = f[i][0:len(f[i])-1] 
+                database.child(mail).child('semester').child(semester).child('timetable').child('friday').child(time[i]).set(d)
+
+    if len(s) != 0:
+        for i in range(len(s)):
+            if s[i] != '':  
+                if s[i] == 'No period':
+                    d = s[i] 
+                else:
+                    d = s[i][0:len(s[i])-1]  
+                database.child(mail).child('semester').child(semester).child('timetable').child('saturday').child(time[i]).set(d)  
+
+    
+
+    
+    
+    timetable = dict(database.child(mail).child('semester').child(semester).child('timetable').get().val()) 
+    day = ['monday','tuesday','wednesday','thrusday','friday','saturday']
+    time = ['9-10','10-11','11-12','1-2','2-3','3-4','4-5'] 
+    data = {}
+    for i in range(6):
+        temp = [] 
+        for j in range(7):
+            temp.append(timetable[day[i]][time[j]]) 
+        data.update({day[i]:temp}) 
+        i += 1 
+    global uname 
+    streak = database.child(mail).child('semester').child(semester).child('streak').get().val() 
+    if int(streak) > 0:
+        data = {'show':data,'sem':semester,'usr':uname,'streak':streak,'cls':'cls'}  
+    else:
+        data = {'show':data,'sem':semester,'usr':uname,'streak':streak} 
+    return render(request,'viewtable.html',data)  
+
+def update_subjects(request):
+    semester = database.child(mail).child('login').child('semester').get().val() 
+    subjects = dict(database.child(mail).child('semester').child(semester).get().val()) 
+    streak = database.child(mail).child('semester').child(semester).child('streak').get().val() 
+    data = {} 
+    for k,v in subjects['subjects'].items():
+        d1 = {}
+        for k1,v1 in v.items():
+            if k1 != 'percentage':
+                d1.update({k1:v1})
+        data.update({k:d1})
+    if int(streak) > 0:
+        sub = {'show':data,'sem':semester,'streak':streak,'cls':'cls'} 
+    else:
+        sub = {'show':data,'sem':semester,'streak':streak}   
+    return render(request,'update_subjects.html',sub) 
+
+def update_sem_subjects(request):
+    semester = database.child(mail).child('login').child('semester').get().val() 
+    subjects = dict(database.child(mail).child('semester').child(semester).get().val()) 
+    streak = database.child(mail).child('semester').child(semester).child('streak').get().val() 
+    data = {} 
+    for k,v in subjects['subjects'].items():
+        d1 = {}
+        for k1,v1 in v.items():
+            if k1 != 'percentage':
+                d1.update({k1:v1})
+        data.update({k:d1})
+    
+    result = list(data.keys()) 
+    result.remove('total') 
+    attended_periods = 0
+    total_periods = 0 
+    for i in range(len(result)):
+        x = result[i]+'_attend'
+        y = result[i]+'_total'
+        x = request.POST[x] 
+        y = request.POST[y]
+        x = int(x)
+        y = int(y)  
+        attended_periods += int(x)
+        total_periods += int(y) 
+        z = round((float(x) / float(y) )*100.0,2)  
+        database.child(mail).child('semester').child(semester).child('subjects').child(result[i]).child('attend').set(x) 
+        database.child(mail).child('semester').child(semester).child('subjects').child(result[i]).child('total').set(y)
+        database.child(mail).child('semester').child(semester).child('subjects').child(result[i]).child('percentage').set(z)
+
+    z = round( (float(attended_periods) / float(total_periods))*100.0 ,2 ) 
+    database.child(mail).child('semester').child(semester).child('subjects').child('total').child('attend').set(attended_periods)  
+    database.child(mail).child('semester').child(semester).child('subjects').child('total').child('total').set(total_periods)  
+    database.child(mail).child('semester').child(semester).child('subjects').child('total').child('percentage').set(z)  
+
+    semester = database.child(mail).child('login').child('semester').get().val() 
+    subjects = dict(database.child(mail).child('semester').child(semester).get().val()) 
+    streak = database.child(mail).child('semester').child(semester).child('streak').get().val() 
+    data = {}  
+    for k,v in subjects['subjects'].items():
+        d1 = {}
+        for k1,v1 in v.items():
+            # if k1 != 'percentage':
+            d1.update({k1:v1}) 
+        data.update({k:d1})   
+    
+    if int(streak) > 0: 
+        sub = {'show':data,'sem':semester,'streak':streak,'cls':'cls'} 
+    else:
+        sub = {'show':data,'sem':semester,'streak':streak}   
+    return render(request,'viewsubjects.html',sub) 

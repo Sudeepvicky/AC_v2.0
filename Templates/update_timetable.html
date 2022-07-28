@@ -1,0 +1,737 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    overflow: hidden;
+}
+
+.toast{
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    border-left: 6px solid #5bf440;
+    overflow: hidden;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+
+.toast.active{
+    transform: translateX(0%);
+}
+
+.toast .toast-content{
+    display: flex;
+    align-items: center;
+}
+
+.toast-content .check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    background-color: #5bf440;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.toast-content .xmark{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    background-color: #ff0000;  
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.toast-content .message{
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+
+.message .text{
+    font-size: 20px;
+    font-weight: 400;;
+    color: #666666;
+}
+
+.message .text.text-1{
+    font-weight: 600;
+    color: #333;
+}
+
+.toast .close{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.toast .close:hover{
+    opacity: 1;
+}
+
+.toast .progress{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+}
+
+.toast .progress:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #5bf440;
+}
+
+.progress.active:before{
+    animation: progress 5s linear forwards;
+}
+
+
+@keyframes progress {
+    100%{
+        right: 100%;
+    }
+}
+
+#btn{
+    padding: 12px 20px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    background-color: #4070f4;
+    color: #fff;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+#sbt{
+    padding: 12px 20px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    background-color: grey; 
+    color: #fff;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+#btn:hover{ 
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+
+#sbt:hover{       
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+
+.toast.active ~ button{
+    pointer-events: none;
+}
+#div {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+    font-size: 12px;
+  text-align: left;
+  padding: 8px;
+}
+td {
+    font-size: 11px;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+.select {
+    padding: 8px 12px;
+    font-size: 11px;
+    color: #333333;
+    background-color: #e0dbf2;
+    border: 1px solid #7d2aff;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.select:focus,
+.select:hover {
+    outline: none;
+    border: 1px solid #7d2aff;
+}
+.select option { 
+    background: #e0dbf2;
+}
+.select:valid { 
+    background: #e0dbf2; 
+    border: 1px solid #7d2aff;
+}
+#block {
+    margin-top: 6%;
+    margin-left: 75%;
+}
+#h1 {
+    text-align: center;
+    color: #7d2aff;
+}
+    </style>
+    </head>
+    <body>
+        <div class="toast" id="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check" id="i"></i>
+      
+                <div class="message">
+                    <span class="text text-1" id="t1">Success</span>  
+                    <span class="text text-2" id="t2">Your changes has been saved</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+      
+            <div class="progress"></div>
+        </div>
+        <div id="#div">
+            <form action="update_timetable_subjects" method="POST"> 
+                <!-- {% csrf_token %}  -->
+            <h1 id="h1"> update {{sem}} :  Time Table </h1> 
+            <table class="table">
+                <th scope="col">Days</th>
+                <th scope="col" style="text-align: center;">09 - 10</th>
+                <th scope="col" style="text-align: center;">10 - 11</th>
+                <th scope="col" style="text-align: center;">11 - 12</th>
+                <th scope="col" style="text-align: center;">Lunch break</th>
+                <th scope="col" style="text-align: center;">01 - 02</th>
+                <th scope="col" style="text-align: center;">02 - 03</th>
+                <th scope="col" style="text-align: center;">03 - 04</th>
+                <th scope="col" style="text-align: center;">04 - 05</th>
+                <tr>
+                    <th scope="row">Monday</th>
+                    <td>
+                        <select name="m1" class="select"   id="m1" >  
+                            <option disabled=" true" selected value="">{{m1}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>   
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="m2" class="select"   id="m2"> 
+                            <option disabled=" true" selected value="">{{m2}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td><td>
+                        <select name="m3" class="select"   id="m3">
+                            <option disabled=" true" selected value="">{{m3}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td rowspan="6"><b>LUNCH BREAK</b></td>
+                    <td>
+                        <select name="m4" class="select"   id="m4">
+                            <option disabled=" true" selected value="">{{m4}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="m5" class="select"   id="m5">
+                            <option disabled=" true" selected value="">{{m5}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="m6" class="select"   id="m6">
+                            <option disabled=" true" selected value="">{{m6}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="m7" class="select"   id="m7">
+                            <option disabled=" true" selected value="">{{m7}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Tuesday</th> 
+                    <td>
+                        <select name="tu1" class="select"   id="tu1">
+                            <option disabled=" true" selected value="">{{tu1}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="tu2" class="select"   id="tu2">
+                            <option disabled=" true" selected value="">{{tu2}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td><td>
+                        <select name="tu3" class="select"   id="tu3"> 
+                            <option disabled=" true" selected value="">{{tu3}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="tu4" class="select"   id="tu4">
+                            <option disabled=" true" selected value="">{{tu4}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="tu5" class="select"   id="tu5">
+                            <option disabled=" true" selected value="">{{tu5}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="tu6" class="select"   id="tu6">
+                            <option disabled=" true" selected value="">{{tu6}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="tu7" class="select"   id="tu7">
+                            <option disabled=" true" selected value="">{{tu7}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Wednesday</th>
+                    <td>
+                        <select name="w1" class="select"   id="w1">
+                            <option disabled=" true" selected value="">{{w1}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="w2" class="select"   id="w2">
+                            <option disabled=" true" selected value="">{{w2}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td><td>
+                        <select name="w3" class="select"   id="w3">
+                            <option disabled=" true" selected value="">{{w3}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="w4" class="select"   id="w4">
+                            <option disabled=" true" selected value="">{{w4}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="w5" class="select"   id="w5">
+                            <option disabled=" true" selected value="">{{w5}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="w6" class="select"   id="w6">
+                            <option disabled=" true" selected value="">{{w6}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="w7" class="select"   id="w7">
+                            <option disabled=" true" selected value="">{{w7}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Thrusday</th>
+                    <td>
+                        <select name="th1" class="select"   id="th1">
+                            <option disabled=" true" selected value="">{{th1}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="th2" class="select"   id="th2">
+                            <option disabled=" true" selected value="">{{th2}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td><td>
+                        <select name="th3" class="select"   id="th3">
+                            <option disabled=" true" selected value="">{{th3}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="th4" class="select"   id="th4">
+                            <option disabled=" true" selected value="">{{th4}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="th5" class="select"   id="th5">
+                            <option disabled=" true" selected value="">{{th5}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="th6" class="select"   id="th6">
+                            <option disabled=" true" selected value="">{{th6}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="th7" class="select"   id="th7">
+                            <option disabled=" true" selected value="">{{th7}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Fr iday</th>
+                    <td>
+                        <select name="f1" class="select"   id="f1">
+                            <option disabled=" true" selected value="">{{f1}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="f2" class="select"   id="f2">
+                            <option disabled=" true" selected value="">{{f2}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td><td>
+                        <select name="f3" class="select"   id="f3">
+                            <option disabled=" true" selected value="">{{f3}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="f4" class="select"   id="f4">
+                            <option disabled=" true" selected value="">{{f4}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="f5" class="select"   id="f5">
+                            <option disabled=" true" selected value="">{{f5}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="f6" class="select"   id="f6">
+                            <option disabled=" true" selected value="">{{f6}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="f7" class="select"   id="f7">
+                            <option disabled=" true" selected value="">{{f7}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Saturday</th> 
+                    <td>
+                        <select name="s1" class="select"   id="s1">
+                            <option disabled=" true" selected value="">{{s1}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="s2" class="select"   id="s2">
+                            <option disabled=" true" selected value="">{{s2}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td><td>
+                        <select name="s3" class="select"   id="s3">
+                            <option disabled=" true" selected value="">{{s3}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="s4" class="select"   id="s4">
+                            <option disabled=" true" selected value="">{{s4}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="s5" class="select"   id="s5">
+                            <option disabled=" true" selected value="">{{s5}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="s6" class="select"   id="s6">
+                            <option disabled=" true" selected value="">{{s6}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="s7" class="select"   id="s7">
+                            <option disabled=" true" selected value="">{{s7}}</option>
+                            {% for x in sub %}
+                            <option> {{x}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div id="block" style="width: 500px;"> 
+                <input type="hidden" name="monday" id="monday">
+                <input type="hidden" name="tuesday" id="tuesday">
+                <input type="hidden" name="wednesday" id="wednesday">
+                <input type="hidden" name="thrusday" id="thrusday">
+                <input type="hidden" name="friday" id="friday">
+                <input type="hidden" name="saturday" id="saturday">
+
+                <button type="button" id="btn" style="display: inline;">Update Timetable</button>
+                <button type="submit" id="sbt" disabled >Save Changes</button> 
+            </div>
+            </form>
+        </div>
+        
+        
+        
+        
+
+        <script>
+
+                const button = document.querySelector("#btn"),
+                toast = document.querySelector(".toast")
+                closeIcon = document.querySelector(".close"),
+                progress = document.querySelector(".progress");
+                let timer1, timer2;
+                var flag = 0;
+                
+                button.addEventListener("click", () => { 
+
+                var m1 = document.getElementById('m1').value;
+                var m2 = document.getElementById('m2').value;
+                var m3 = document.getElementById('m3').value;
+                var m4 = document.getElementById('m4').value;
+                var m5 = document.getElementById('m5').value;
+                var m6 = document.getElementById('m6').value;
+                var m7 = document.getElementById('m7').value;
+                
+                document.getElementById('monday').value = m1 + ',' + m2 + ',' + m3 + ',' + m4 + ',' + m5 + ',' + m6 + ',' + m7;
+
+                var tu1 = document.getElementById('tu1').value;
+                var tu2 = document.getElementById('tu2').value;
+                var tu3 = document.getElementById('tu3').value;
+                var tu4 = document.getElementById('tu4').value;
+                var tu5 = document.getElementById('tu5').value; 
+                var tu6 = document.getElementById('tu6').value;
+                var tu7 = document.getElementById('tu7').value;  
+
+                document.getElementById('tuesday').value = tu1 + ',' + tu2 + ',' + tu3 + ',' + tu4 + ',' + tu5 + ',' + tu6 + ',' + tu7;
+
+                var w1 = document.getElementById('w1').value;
+                var w2 = document.getElementById('w2').value;
+                var w3 = document.getElementById('w3').value;
+                var w4 = document.getElementById('w4').value;
+                var w5 = document.getElementById('w5').value;
+                var w6 = document.getElementById('w6').value;
+                var w7 = document.getElementById('w7').value;  
+
+                document.getElementById('wednesday').value = w1 + ',' + w2 + ',' + w3 + ',' + w4 + ',' + w5 + ',' + w6 + ',' + w7;
+
+                var th1 = document.getElementById('th1').value;
+                var th2 = document.getElementById('th2').value;
+                var th3 = document.getElementById('th3').value;
+                var th4 = document.getElementById('th4').value;
+                var th5 = document.getElementById('th5').value;
+                var th6 = document.getElementById('th6').value; 
+                var th7 = document.getElementById('th7').value;
+
+                document.getElementById('thrusday').value = th1 + ',' + th2 + ',' + th3 + ',' + th4 + ',' + th5 + ',' + th6 + ',' + th7;
+
+                var f1 = document.getElementById('f1').value;
+                var f2 = document.getElementById('f2').value;
+                var f3 = document.getElementById('f3').value;
+                var f4 = document.getElementById('f4').value; 
+                var f5 = document.getElementById('f5').value;
+                var f6 = document.getElementById('f6').value;
+                var f7 = document.getElementById('f7').value;
+
+                document.getElementById('friday').value = f1 + ',' + f2 + ',' + f3 + ',' + f4 + ',' + f5 + ',' + f6 + ',' + f7;
+
+                var s1 = document.getElementById('s1').value;
+                var s2 = document.getElementById('s2').value;
+                var s3 = document.getElementById('s3').value;
+                var s4 = document.getElementById('s4').value;
+                var s5 = document.getElementById('s5').value; 
+                var s6 = document.getElementById('s6').value; 
+                var s7 = document.getElementById('s7').value;
+
+                document.getElementById('saturday').value = s1 + ',' + s2 + ',' + s3 + ',' + s4 + ',' + s5 + ',' + s6 + ',' + s7;
+
+                console.log('else block') 
+                var x = progress.classList;
+                if (x.length == 3)
+                progress.classList.remove('deactive')
+                console.log(x) 
+                document.getElementById('sbt').disabled = false;
+                document.getElementById('sbt').style.background = '#4070f4';
+                document.getElementById('t1').innerHTML = 'Success';
+                document.getElementById('t2').innerHTML = 'Your changes has been saved';
+                document.getElementById('i').style.background = '#43f440'; 
+                document.getElementById('toast').style.borderLeft = '6px solid #5bf440';
+                document.getElementById('i').className = "fas fa-solid fa-check check"; 
+                // var i =0;
+                // var s = '';
+                // for(i=0;i<tags.length;i++)
+                // {
+                //     s += tags[i] + ',';
+                // }
+                // var x = document.getElementById('semester').value;
+                // document.getElementById('ip1').value = x;
+                // document.getElementById('ip').value = s;
+                // countTags(); 
+                toast.classList.add("active");
+                progress.classList.add("active");
+                flag = 1;
+                timer1 = setTimeout(() => {
+                    toast.classList.remove("active");
+                }, 5000); //1s = 1000 milliseconds
+
+                timer2 = setTimeout(() => {
+                    progress.classList.remove("active");
+                }, 5300);
+                                      
+            });   
+            
+            closeIcon.addEventListener("click", () => {
+                toast.classList.remove("active");
+                
+                setTimeout(() => {
+                progress.classList.remove("active");
+                }, 300);
+
+                clearTimeout(timer1);
+                clearTimeout(timer2);
+            });
+
+        </script>
+
+    </body>
+</html>

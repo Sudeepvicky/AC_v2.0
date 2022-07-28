@@ -27,6 +27,11 @@ urlpatterns = [
     path('add_sem_subjects',views.add_sem_subjects,name='add_sem_subjects'),  
     path('add_subjects',views.add_subjects,name='add_subjects'),  
     path('add_sem_timetable',views.add_sem_timetable,name='add_sem_timetable'),  
+    path('update_timetable',views.update_timetable,name='update_timetable'),   
+    path('update_timetable_subjects',views.update_timetable_subjects,name='update_timetable_subjects'),
+    path('update_subjects',views.update_subjects,name='update_subjects'), 
+    path('update_sem_subjects',views.update_sem_subjects,name='update_sem_subjects'),  
+
 
 
 ]

@@ -34,7 +34,10 @@ urlpatterns = [
     path('analytics',views.analytics,name='analytics'), 
     path('prediction',views.prediction,name='prediction'),  
     path('prediction_set',views.prediction_set,name='prediction_set'),  
-    path('dashboard',views.dashboard,name='dashboard'),   
+    path('dashboard',views.dashboard,name='dashboard'), 
+    path('record_attendance',views.record_attendance,name='record_attendance'),  
+    path('semester_info',views.semester_info,name='semester_info'),    
+    path('info',views.info,name='info'),    
 
 
 

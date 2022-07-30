@@ -4,16 +4,16 @@
 <form action="update_subjects" method="post"> 
   <div style="padding: 30px 200px 100px 200px;text-align: center;">
     <table> 
-      <h1 style="display: inline-block;color: #7d2ae8;" >Subjects <button type="submit" id="edit_time_table"><i class='bx bxs-pencil'></i></button> </h1> 
-        <th style="font-size: 18px;color: #0d75ec;">Subject</th>
-        <th style="font-size: 18px;color: #0d75ec;">Attended periods</th>
-        <th style="font-size: 18px;color: #0d75ec;">Total periods </th> 
+      <h1 style="display: inline-block;color: #7d2ae8;" >Subjects <button type="submit" id="edit_time_table"><i class='bx bxs-pencil'></i></button> </h1> <br><br>
+        <th style="font-size: 18px;color: #0d75ec;"> <i>Subject</i> </th>
+        <th style="font-size: 18px;color: #0d75ec;"> <i>Attended periods</i> </th>
+        <th style="font-size: 18px;color: #0d75ec;"> <i>Total periods</i> </th> 
         {% for k,v in show.items %}
         <tr> 
           {% if k != "total" %}
-          <td style="font-size: 16px;"> <b> {{k}} </b> </td>
-          <td style="font-size: 16px;"> {{v.attend}} </td>
-          <td style="font-size: 16px;"> {{v.total}} </td> 
+          <td style="font-size: 16px;"> <b> <i> {{k}} </i></b> </td>
+          <td style="font-size: 16px;"> <i>{{v.attend}}</i> </td>
+          <td style="font-size: 16px;"> <i>{{v.total}}</i> </td> 
           {% endif %} 
         </tr>
         {% endfor %}
@@ -21,9 +21,9 @@
         
           {% if k == "total"  %}
           <tr>
-            <td style="font-size: 16px;"> <b> {{k}} </b> </td> 
-            <td style="font-size: 16px;">  <b>{{v.attend}}</b> </td>
-            <td style="font-size: 16px;"> <b>{{v.total}}</b> </td>
+            <td style="font-size: 16px;"> <b> <i>{{k}}</i> </b> </td> 
+            <td style="font-size: 16px;">  <b> <i>{{v.attend}}</i></b> </td>
+            <td style="font-size: 16px;"> <b> {{v.total}} </b> </td>
           </tr>
           {% endif %} 
         

@@ -2,9 +2,12 @@
 
 {% block content %}
 <br>
-<h1 style="color: #7d2ae8;text-align: center;margin-right: 100px;">analytics page</h1> 
 <div style="padding: 20px;width: 100%;display: grid;">   
-    <div>
+    <div style="text-align: center;color: #7d2ae8;font-size: 24px;font-weight: bolder;margin-bottom: 20px;">
+        <input type="checkbox" style="text-align: center;width: 16px;height: 16px;margin-right: 5px;" onclick="subjects_view()">  Subjects wise Analysis
+        <!-- <h1 style="color: #7d2ae8;text-align: center;margin-right: 100px;">Subjects wise Analysis</h1>  -->
+    </div>
+    <div style="width: 90%;"> 
         <div class="analytic_container" onmouseenter ="progress('.{{total.pro}}','.{{total.pro_val}} ',' {{total.per}} ',' {{total.color}} ')">
             <div class="container"  style="width: 350px;margin: 20px;"> 
                 <div class="circular-progress_totoal {{total.pro}} {{total.r}} " >  
@@ -23,9 +26,9 @@
         
     </div>    
 </div>
-<h1 style="color: #7d2ae8;text-align: center;margin-right: 100px;">Subjects wise Analysis</h1>  
+ 
 
-<div style="padding: 20px;width: 100%;">
+<div style="padding: 20px;width: 100%;display: none;" id="subjects_view">
     {% for x,y in temp.items %} 
     <div class="analytic_container" onmouseenter ="progress('.{{y.pro}}','.{{y.pro_val}} ',' {{y.per}} ','{{y.color}}')"> 
         <h1 style="color: #0d75ec;text-align: center;">Subject : {{x}}</h1>  
@@ -68,7 +71,14 @@
             }    
         }, speed);
     }
-
+    function subjects_view()
+    {
+        var x = document.getElementById('subjects_view').style.display;
+        if(x == 'none')
+        document.getElementById('subjects_view').style.display = 'block'
+        else 
+        document.getElementById('subjects_view').style.display = 'none'
+    }
 </script>
 
 {% endblock %}

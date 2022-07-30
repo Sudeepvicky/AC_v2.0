@@ -1,6 +1,6 @@
 {% extends 'home.html' %}
 {% block content %}
-    <div class="profile">
+    <div class="profile" style="box-shadow: 0px 0px 10px rgba(0,0,0,0.5);border: 1px solid white;">
         <div class="profile_img">
             <img src="/media/gifs/user.gif" width="150px" height="150px">
         </div>
@@ -30,7 +30,7 @@
         <div>
             <br><br><br><br class="confirm_password" style="display: none;"><br class="confirm_password" style="display: none;">
             
-            <input type="checkbox" id="change_password" style="margin-right: 5px;" onclick="change_password()"> Change password
+            <input type="checkbox" id="change_password" style="margin-right: 5px;cursor: pointer;" onclick="change_password()"  > Change password
 
             <form action="newpassword" method="post" style="float: right;" class="form">
                 <input type="hidden" name="newpassword" id="newpassword">   

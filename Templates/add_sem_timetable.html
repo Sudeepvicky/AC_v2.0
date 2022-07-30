@@ -152,7 +152,7 @@ body{
     }
 }
 
-button{
+#btn{
     padding: 12px 20px;
     font-size: 16px;
     outline: none;
@@ -163,8 +163,19 @@ button{
     cursor: pointer;
     transition: 0.3s;
 }
+#sbt {
+    padding: 12px 20px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    background-color: grey;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;   
+}
 
-button:hover{
+button:hover{ 
     background-color: #0e4bf1;
 }
 
@@ -734,6 +745,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         progress.classList.remove('deactive')
                         console.log(x) 
                         document.getElementById('sbt').disabled = false;
+                        document.getElementById('sbt').style.background = '#4070f4'; 
                         document.getElementById('sbt').classList.remove('disable');
                         document.getElementById('t1').innerHTML = 'Success';
                         document.getElementById('t2').innerHTML = 'Your changes has been saved';

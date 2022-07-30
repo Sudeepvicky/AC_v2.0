@@ -16,15 +16,15 @@
     <br><br> 
     <div class="container" onmouseenter ="progress('.{{total.pro}}','.{{total.pro_val}} ',' {{total.per}} ',' {{total.color}} ')" style="width: 250px;box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 5px;"> 
         <div class="circular-progress {{total.pro}} {{total.r}} " >   
-            <span class="progress-value {{total.pro_val}} {{total.col}} "> {{total.per}} </span>   
+            <span class="progress-value {{total.pro_val}} {{total.col}} "> {{total.per}}% </span>   
         </div> 
         <span class="text">{{total.attend}}/{{total.total}}</span>
         <span class="text">Present Percentage</span> 
     </div>
     <img src="/media/gifs/arrow.gif" width="100px" height="100px" style="margin-top: 100px;">
     <div class="container" onmouseenter ="progress('.{{predict.pro}}','.{{predict.pro_val}} ',' {{predict.per}} ',' {{predict.color}} ')" style="float: right;width: 250px;box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 5px;"> 
-        <div class="circular-progress {{predict.pro}} {{predict.r}} " >    
-            <span class="progress-value {{predict.pro_val}} {{predict.col}} "> {{predict.per}} </span>   
+        <div class="circular-progress {{predict.pro}} {{predict.r}}" >    
+            <span class="progress-value {{predict.pro_val}} {{predict.col}} "> {{predict.per}}% </span>   
         </div> 
         <span class="text">{{predict.attend}}/{{predict.total}}</span>
         <span class="text">Predicted Percentage</span> 

@@ -424,6 +424,7 @@ td {
 
 .analytic_container {
     float: left; 
+    cursor: pointer;
     margin-bottom: 20px;
     padding: 5px 5px;
     border-radius: 8px;
@@ -840,12 +841,12 @@ td {
 .submit_card {
   text-align: center; 
   z-index: 999;
-  width: 300px;
-  height: 300px;
+  width: 600px;
+  height: 350px;
   border: 1px solid  white; 
   border-radius: 10px;
-  position: absolute;
-  margin-left: 38%;
+  position: fixed; 
+  margin-left: 28%;  
   margin-top: 10%;
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
@@ -866,8 +867,83 @@ td {
 }
 
 /* ------------------------------- end of submit card styling ---------------------------------- */
+
+/* ------------------------------- semester info styling --------------------------------------- */
+
+.form {
+  float: left;
+  width: 50%;
+}
+.profile {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  position: relative;
+  color: #7d2ae8;
+  font-weight: 600;
+  text-align: center;
+  width: 90%;
+  height: 80%;
+  border: 1px solid grey;
+  border-radius: 15px;
+  padding: 0px 40px 20px 40px;
+}
+.profile_img {
+  position: relative;
+  padding-top: 20px;
+  top: 0%;
+}
+
+.profile .form input {
+  text-align: center;
+  height: 30%;
+  outline: none;
+  border: none;
+  margin-left: 5px;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid #7d2ae8;  
+}
+
+.profile .form i {
+  position: absolute;
+  color: #7d2ae8;
+  font-size: 20px;
+}
+
+.profile .form img {
+  cursor: pointer; 
+  position: absolute;
+  color: #7d2ae8;
+}
+
+.profile button {
+  float: right;
+  width: 150px;
+  height: 35px;
+  border-radius:5px;
+  font-weight: 400;
+  background-color: #0d75ec;  
+  border: none;
+  color: white;
+  outline: none;
+  border: none;
+}
+.profile button:hover {
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+/* ------------------------------- end of semester info styling ------------------------------------- */
    </style>
 <body> 
+  <div class="submit_card" id="submit_card" style="display: none;">     
+    <i class='bx bx-x' onclick="submit_card_hide()"></i> 
+    <div style="margin-top: 10%;position: relative;"> 
+      <img src="/media/gifs/sucess.gif" width="230px" height="230px">  
+    </div>
+    <p style="color: #00ff00;z-index: 999;"> <b>Response Recorded</b> </p> 
+  </div>
   <div class="sidebar">
     <div class="logo-details">
       <i class='bx bxl-c-plus-plus'></i>
@@ -917,8 +993,9 @@ td {
           <li><a class="link_name" href="#">Prediction</a></li> 
         </ul>
       </li>
+      
       <li>
-        <a href="#">
+        <a href="semester_info">
             <i class='bx bx-info-circle'></i>
           <span class="link_name"> {{sem}} </span>
         </a>
@@ -933,18 +1010,13 @@ td {
             <div class="name-job">
                 <div class="profile_name"> Back </div>
             </div>
-            <a href="homepage"><i class='bx bx-log-out'></i></a>
+            <a href="semester"><i class='bx bx-log-out'></i></a> 
         </div> 
   </li>
+ 
 </ul>
   </div>
-  <div class="submit_card" id="submit_card" style="display: none;">     
-    <i class='bx bx-x' onclick="submit_card_hide()"></i> 
-    <div style="margin-top: 10%;position: relative;"> 
-      <img src="/media/gifs/sucess.gif" width="230px" height="230px">  
-    </div>
-    <p style="color: #00ff00;z-index: 999;"> <b>Response Recorded</b> </p> 
-  </div>
+  
   <section class="home-section">
     <div class="home-content" >
       <i class='bx bx-menu' ></i>
@@ -974,11 +1046,7 @@ td {
 
   function submit_card_hide()
   {
-    var x = document.getElementById('submit_card').style.display; 
-    if(x == 'block') 
-    document.getElementById('submit_card').style.display = 'none';
-    else 
-    document.getElementById('submit_card').style.display = 'block';   
+    document.getElementById('submit_card').style.display = 'none';     
   }
 
 

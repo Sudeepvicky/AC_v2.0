@@ -152,7 +152,7 @@ body{
     }
 }
 
-button{
+#btn{
     padding: 12px 20px;
     font-size: 16px;
     outline: none;
@@ -163,8 +163,19 @@ button{
     cursor: pointer;
     transition: 0.3s;
 }
+#sbt {
+    padding: 12px 20px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    background-color: grey;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;   
+}
 
-button:hover{
+button:hover{ 
     background-color: #0e4bf1;
 }
 
@@ -702,7 +713,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
                 if(!flag)  
                 {
-                        document.getElementById('sbt').disabled = true;
+                        document.getElementById('sbt').disabled = true; 
                         document.getElementById('sbt').classList.add('disable');
                         document.getElementById('t1').innerHTML = 'Error';
                         document.getElementById('t2').innerHTML = 'Please fill the fields';
@@ -728,12 +739,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 }
                 else 
                 { 
-                        console.log('else block') 
                         var x = progress.classList;
                         if (x.length == 3)
                         progress.classList.remove('deactive')
                         console.log(x) 
                         document.getElementById('sbt').disabled = false;
+                        document.getElementById('sbt').style.background = '#4070f4'; 
                         document.getElementById('sbt').classList.remove('disable');
                         document.getElementById('t1').innerHTML = 'Success';
                         document.getElementById('t2').innerHTML = 'Your changes has been saved';

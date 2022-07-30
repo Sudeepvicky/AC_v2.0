@@ -3,26 +3,26 @@
 {% block content %}
 
 <form action="update_timetable" method="post"> 
-<div style="padding: 30px 200px 100px 200px;text-align: center;"> 
-    <h1 style="display: inline-block;">  {{sem}} : Timetable <button type="submit" id="edit_time_table"><i class='bx bxs-pencil'></i></button> </h1> 
+<div style="padding: 30px 70px 100px 5px;text-align: center;">  
+    <h1 style="display: inline-block;color: #7d2ae8;">  {{sem}} : Timetable <button type="submit" id="edit_time_table"><i class='bx bxs-pencil'></i></button> </h1> 
      
-      
+      <br><br>
   <table >
-    <th style="font-size: 18px;color: #0d75ec;">Days</th> 
-    <th style="font-size: 18px;color: #0d75ec;">09 - 10  </th>
-    <th style="font-size: 18px;color: #0d75ec;">10 - 11  </th>
-    <th style="font-size: 18px;color: #0d75ec;">11 - 12  </th>
-    <th style="font-size: 18px;color: #0d75ec;">01 - 02  </th>
-    <th style="font-size: 18px;color: #0d75ec;">02 - 03  </th>
-    <th style="font-size: 18px;color: #0d75ec;">03 - 04  </th>
-    <th style="font-size: 18px;color: #0d75ec;">04 - 05  </th>
+    <th style="font-size: 18px;color: #0d75ec;"> <i>Days</i></th> 
+    <th style="font-size: 18px;color: #0d75ec;"><i>09 - 10</i>  </th>
+    <th style="font-size: 18px;color: #0d75ec;"><i>10 - 11</i>  </th>
+    <th style="font-size: 18px;color: #0d75ec;"><i>11 - 12</i>  </th>
+    <th style="font-size: 18px;color: #0d75ec;"><i>01 - 02</i>  </th>
+    <th style="font-size: 18px;color: #0d75ec;"><i>02 - 03</i>  </th>
+    <th style="font-size: 18px;color: #0d75ec;"><i>03 - 04</i>  </th>
+    <th style="font-size: 18px;color: #0d75ec;"><i>04 - 05</i>  </th>
       
   
       {% for k,v in show.items %}
       <tr>
-          <th> {{k}}</th>
+          <th style="font-size: 18px;"> <i>{{k}}</i> </th>
           {% for x in v %} 
-              <td style="font-size: 16px;"> {{x}} </td> 
+              <td style="font-size: 16px;"> <i>{{x}}</i> </td> 
           {% endfor %}
       </tr>
       {% endfor %}

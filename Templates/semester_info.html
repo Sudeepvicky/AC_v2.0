@@ -1,0 +1,57 @@
+{% extends 'currsem.html' %}
+
+{% block content %}
+<div class="profile">
+    <div class="profile_img">
+        <img src="/media/gifs/books.gif" width="150px" height="150px">
+    </div>
+    <br><br><br>
+    <div style="padding-bottom: 20px;">
+        <form action="#" method="post" class="form"> 
+            Semester name : <input type="text" readonly value=" {{sem}} " style="width: 50%;"> 
+            <br><br>
+            Total Subejcts : <input type="text" readonly value=" {{total}} " style="width: 50%;">
+            <div class="confirm_password" style="display: none;">
+                <br>
+                <img src="/media/images/password1.png" width="20px" height="20px" onclick="show1('change_psd1','img1')" id="img1" > <input type="password" placeholder="password" style="width: 85%;" id="change_psd1"> 
+                <br>
+            </div>
+        </form>
+        <form action="#" method="post" class="form">
+            Time table updations : <input type="text" readonly value=" {{update}}" style="width: 30%;">
+            <br><br>
+            <button type="button" onclick="view_subjects()"> view subjects</button> 
+            <br><br> 
+        </form>
+        <div style="margin-left: 40%; width: 200px;display: grid;">
+            <ul style="display: none;text-align: left;" class="view_subjects">
+                {% for x in sub %}
+                <li> Subject {{ forloop.counter }} : {{x}} </li>
+                {% endfor %}
+            </ul>
+            <br class="view_subjects" style="display: block;">
+            <br class="view_subjects" style="display: block;">
+            <br class="view_subjects" style="display: block;">
+        </div>
+    </div>
+    
+</div>
+<script>
+    function view_subjects()
+    {
+        var x = document.getElementsByClassName('view_subjects')
+        if(x[0].style.display == 'none')
+        {
+            x[0].style.display = 'block'
+            for(var i=1;i<x.length;i++)
+            x[i].style.display = 'none'
+        }
+        else 
+        {
+            x[0].style.display = 'none' 
+            for(var i=1;i<x.length;i++)
+            x[i].style.display = 'block'
+        }
+    }
+</script>
+{% endblock %}

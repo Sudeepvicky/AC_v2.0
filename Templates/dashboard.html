@@ -1,7 +1,7 @@
 {% extends 'currsem.html' %} 
 
 {% block content %}
-<form action="#" method="post">
+<form action="record_attendance" method="post">  
     <div style="border: 1px solid grey;border-radius: 8px;width: 90%;margin-top: 40px;text-align: center;">  
         <h1 style="text-align: center;color: #7d2ae8;">Choose the day</h1> <br>
         <label class="radio_btn" onclick="dashboard_hide()"> 
@@ -31,7 +31,7 @@
         <br><br>
     </div>
     
-    <input type="hidden" id="present_day">
+    <input type="hidden" id="present_day" name="present_day"> 
 
     {% for k,v in data.items %} 
     <div style="width: 90%;display: none;"  id="{{k}}">   
@@ -46,7 +46,8 @@
                         <tr> 
                             <td style="width: 100px;font-size: 20px;">{{ k1 }}</td>
                             <td style="width: 200px;font-size: 20px;"> {{ v1 }} </td>
-                            <td style="width: 50px;font-size: 20px;"> <input type="checkbox" id="{{k}}_{{k1}}" value="0" onclick="attend('{{k}}_{{k1}}')" style="cursor: pointer;width: 15px;height: 15px;" > </td>
+                            <td style="width: 50px;font-size: 20px;"> <input type="checkbox"  value="0" onclick="attend('{{k}}_{{k1}}')" style="cursor: pointer;width: 15px;height: 15px;" > </td>
+                            <input type="hidden" name="{{k}}_{{k1}}" id="{{k}}_{{k1}}" value="0">
                         </tr> 
                     {% endif %}
                 {% endfor %}   
@@ -55,8 +56,8 @@
         {% endif %}  
         {% if v.msg ==  "" %} 
             <div style="float: right;width: 300px;margin-bottom: 50px;">   
-                <input type="button"  class="dashboard_btn1"  value="{{k}}" style="float: left;" onclick="submit_card_hide()" >  
-                <input type="button"  class="dashboard_btn2" disabled value="Submit" >  
+                <input type="button" id="{{k}}_btn1" class="dashboard_btn1"  value="Add" style="float: left;" onclick="submit_card_hide1('{{k}}_btn2')" >  
+                <input type="submit" id="{{k}}_btn2" class="dashboard_btn2" disabled value="Submit" >  
             </div> 
         {% endif %}
     </div>
@@ -66,6 +67,12 @@
 </form>
 
 <script>
+    function submit_card_hide1(id)
+    {
+        document.getElementById(id).disabled = false;
+        document.getElementById(id).style.background = '#4070f4'
+        document.getElementById('submit_card').style.display = 'block';    
+    }
     function attend(id) 
     {
         var x = document.getElementById(id).value;

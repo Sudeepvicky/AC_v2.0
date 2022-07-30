@@ -1,0 +1,60 @@
+{% extends 'currsem.html' %} 
+
+{% block content %}
+
+
+<div id="prediction_card" style="text-align: center;"> 
+    <div style="text-align: center;"> 
+        <form action="prediction_set" method="post">
+            <label> <b>Required Percentage : </b> </label>
+            <input type="number" value="75" style="text-align: center;" id="prediction_input" name="prediction_input"> 
+            <input type="submit" value="Predict" id="prediction_button"> 
+        </form> 
+    </div> 
+    <br>
+    <b style="text-align: center;"> {{msg}} </b>  
+    <br><br> 
+    <div class="container" onmouseenter ="progress('.{{total.pro}}','.{{total.pro_val}} ',' {{total.per}} ',' {{total.color}} ')" style="width: 250px;box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 5px;"> 
+        <div class="circular-progress {{total.pro}} {{total.r}} " >   
+            <span class="progress-value {{total.pro_val}} {{total.col}} "> {{total.per}} </span>   
+        </div> 
+        <span class="text">{{total.attend}}/{{total.total}}</span>
+        <span class="text">Present Percentage</span> 
+    </div>
+    <img src="/media/gifs/arrow.gif" width="100px" height="100px" style="margin-top: 100px;">
+    <div class="container" onmouseenter ="progress('.{{predict.pro}}','.{{predict.pro_val}} ',' {{predict.per}} ',' {{predict.color}} ')" style="float: right;width: 250px;box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 5px;"> 
+        <div class="circular-progress {{predict.pro}} {{predict.r}} " >    
+            <span class="progress-value {{predict.pro_val}} {{predict.col}} "> {{predict.per}} </span>   
+        </div> 
+        <span class="text">{{predict.attend}}/{{predict.total}}</span>
+        <span class="text">Predicted Percentage</span> 
+    </div>
+    
+</div>
+
+<script>
+    function progress(cls,cls_val,val,col) 
+    {
+        if(val == 0)
+        return 
+        let circularProgress = document.querySelector(cls),
+        progressValue = document.querySelector(cls_val); 
+
+        let progressStartValue = 0,    
+            progressEndValue = parseInt(val),    
+            speed = 3;
+        progressValue.style.color = col;
+        let progress = setInterval(() => {
+            progressStartValue++; 
+
+            progressValue.textContent = `${progressStartValue}%` 
+            circularProgress.style.background = `conic-gradient(${col} ${progressStartValue * 3.6}deg, #ededed 0deg)`
+
+            if(progressStartValue == progressEndValue){
+                clearInterval(progress);
+            }    
+        }, speed);
+    }
+</script>
+
+{% endblock %}

@@ -12,8 +12,8 @@
         <tr> 
           {% if k != "total" %}
             <td style="padding: 0px 40px;font-size: 16px;"> <b class="key"> {{k}} </b> </td>     
-            <td> <input type="text" name="{{k}}_attend"  id="{{k}}_attend" value="{{ v.attend }}" class="edit_subjects_input"></td> 
-            <td> <input type="text" name="{{k}}_total"  id="{{k}}_total" value="{{ v.total }}" class="edit_subjects_input"></td>      
+            <td> <input type="number" name="{{k}}_attend"  id="{{k}}_attend" value="{{ v.attend }}" class="edit_subjects_input"></td> 
+            <td> <input type="number" name="{{k}}_total"  id="{{k}}_total" value="{{ v.total }}" class="edit_subjects_input"></td>      
           {% endif %} 
         </tr>
         {% endfor %}

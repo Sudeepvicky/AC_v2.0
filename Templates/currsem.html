@@ -8,7 +8,7 @@
     <!-- Boxiocns CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
    </head>
    <style>
    
@@ -357,7 +357,515 @@ td {
 
 /* ------------------------------- end of edit subjects styling ---------------------------------- */
 
+/* ------------------------------- analytics styling ---------------------------------- */
 
+.container{
+    display: flex;
+    text-align: center;
+    float: left;
+    /* margin-right: 20px; */
+    width: 350px;
+    padding: 20px 20px;
+    border-radius: 8px;
+    background: #fff;
+    row-gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid grey; */
+}
+
+.circular-progress{
+    position: relative;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+.circular-progress::before{
+    content: "";
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.circular-progress_totoal {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    padding: 20px 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+.circular-progress_totoal::before{ 
+    content: "";
+    position: absolute;
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.progress-value{
+    position: relative;
+    font-size: 24px;
+    font-weight: 600;
+    color: #7d2ae8;
+}
+.text{
+    font-size: 22px;
+    font-weight: 500;
+    color: #606060;
+}
+
+.analytic_container {
+    float: left; 
+    margin-bottom: 20px;
+    padding: 5px 5px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 5px;
+}
+
+.red {
+  color: red;
+}
+.green {
+  color: #00ff00; 
+}
+.orange {
+  color: orange;
+}
+
+._1 {
+  background: conic-gradient(#ff0000 3.6deg, #ededed 0deg);   
+}
+._2 {
+  background: conic-gradient(#ff0000 7.2deg, #ededed 0deg);   
+}
+._3 {
+  background: conic-gradient(#ff0000 10.8deg, #ededed 0deg);   
+}
+._4 {
+  background: conic-gradient(#ff0000 14.4deg, #ededed 0deg);   
+}
+._5 {
+  background: conic-gradient(#ff0000 18.0deg, #ededed 0deg);   
+}
+._6 {
+  background: conic-gradient(#ff0000 21.6deg, #ededed 0deg);   
+}
+._7 {
+  background: conic-gradient(#ff0000 25.2deg, #ededed 0deg);   
+}
+._8 {
+  background: conic-gradient(#ff0000 28.8deg, #ededed 0deg);   
+}
+._9 {
+  background: conic-gradient(#ff0000 32.4deg, #ededed 0deg);   
+}
+._10 {
+  background: conic-gradient(#ff0000 36deg, #ededed 0deg);   
+}
+._11 {
+  background: conic-gradient(#ff0000 39.6deg, #ededed 0deg);   
+}
+._12 {
+  background: conic-gradient(#ff0000 43.2deg, #ededed 0deg);    
+}
+._13 {
+  background: conic-gradient(#ff0000 46.8deg, #ededed 0deg);   
+}
+._14 {
+  background: conic-gradient(#ff0000 50.4deg, #ededed 0deg);   
+}
+._15 {
+  background: conic-gradient(#ff0000 57.6deg, #ededed 0deg);   
+}
+._16 {
+  background: conic-gradient(#ff0000 61.2deg, #ededed 0deg);   
+}
+._17 {
+  background: conic-gradient(#ff0000 64deg, #ededed 0deg);   
+}
+._18 {
+  background: conic-gradient(#ff0000 68deg, #ededed 0deg);   
+}
+._19 {
+  background: conic-gradient(#ff0000 72deg, #ededed 0deg);   
+}
+._21 {
+  background: conic-gradient(#ff0000 75deg, #ededed 0deg);   
+}
+._22 {
+  background: conic-gradient(#ff0000 79deg, #ededed 0deg);   
+}
+._23 {
+  background: conic-gradient(#ff0000 82deg, #ededed 0deg);   
+}
+._24 {
+  background: conic-gradient(#ff0000 86deg, #ededed 0deg);   
+}
+._25 {
+  background: conic-gradient(#ff0000 90deg, #ededed 0deg);   
+}
+._26 {
+  background: conic-gradient(#ff0000 93deg, #ededed 0deg);   
+}
+._27 {
+  background: conic-gradient(#ff0000 97deg, #ededed 0deg);   
+}
+._28 {
+  background: conic-gradient(#ff0000 100deg, #ededed 0deg);   
+}
+._29 {
+  background: conic-gradient(#ff0000 104deg, #ededed 0deg);   
+}
+._30 {
+  background: conic-gradient(#ff0000 108deg, #ededed 0deg);   
+}
+._31 {
+  background: conic-gradient(#ff0000 111deg, #ededed 0deg);   
+}
+._32 {
+  background: conic-gradient(#ff0000 115deg, #ededed 0deg);   
+}
+._33 {
+  background: conic-gradient(#ff0000 118deg, #ededed 0deg);   
+}
+._34 {
+  background: conic-gradient(#ff0000 122deg, #ededed 0deg);   
+}
+._35 {
+  background: conic-gradient(#ff0000 126deg, #ededed 0deg);   
+}
+._36 {
+  background: conic-gradient(#ff0000 129deg, #ededed 0deg);   
+}
+._37 {
+  background: conic-gradient(#ff0000 133deg, #ededed 0deg);   
+}
+._38 {
+  background: conic-gradient(#ff0000 136deg, #ededed 0deg);   
+}
+._39 {
+  background: conic-gradient(#ff0000 140deg, #ededed 0deg);   
+}
+._40 {
+  background: conic-gradient(#ff0000 144deg, #ededed 0deg);   
+}
+._41 {
+  background: conic-gradient(#ff0000 147deg, #ededed 0deg);   
+}
+._42 {
+  background: conic-gradient(#ff0000 151deg, #ededed 0deg);   
+}
+._43 {
+  background: conic-gradient(#ff0000 154deg, #ededed 0deg);   
+}
+._44 {
+  background: conic-gradient(#ff0000 158deg, #ededed 0deg);   
+}
+._45 {
+  background: conic-gradient(#ff0000 162deg, #ededed 0deg);   
+}
+._46 {
+  background: conic-gradient(#ff0000 165deg, #ededed 0deg);   
+}
+._47 {
+  background: conic-gradient(#ff0000 169deg, #ededed 0deg);   
+}
+._48 {
+  background: conic-gradient(#ff0000 172deg, #ededed 0deg);   
+}
+._49 {
+  background: conic-gradient(#ff0000 176deg, #ededed 0deg);   
+}
+._50 {
+  background: conic-gradient(#ff0000 180deg, #ededed 0deg);   
+}
+._51 {
+  background: conic-gradient(#ff0000 183deg, #ededed 0deg);   
+}
+._52 {
+  background: conic-gradient(#ff0000 187deg, #ededed 0deg);   
+}
+._53 {
+  background: conic-gradient(#ff0000 190deg, #ededed 0deg);   
+}
+._54 {
+  background: conic-gradient(#ff0000 194deg, #ededed 0deg);   
+}
+._55 {
+  background: conic-gradient(#ff0000 198deg, #ededed 0deg);   
+}
+._56 {
+  background: conic-gradient(#ff0000 201deg, #ededed 0deg);   
+}
+._57 {
+  background: conic-gradient(#ff0000 205deg, #ededed 0deg);   
+}
+._58 {
+  background: conic-gradient(#ff0000 208deg, #ededed 0deg);   
+}
+._59 {
+  background: conic-gradient(#ff0000 212deg, #ededed 0deg);   
+}
+._60 {
+  background: conic-gradient(#ff0000 216deg, #ededed 0deg);   
+}
+._61 {
+  background: conic-gradient(#ff0000 219deg, #ededed 0deg);   
+}
+._62 {
+  background: conic-gradient(#ff0000 223deg, #ededed 0deg);   
+}
+._63 {
+  background: conic-gradient(#ff0000 226deg, #ededed 0deg);   
+}
+._64 {
+  background: conic-gradient(#ff0000 230deg, #ededed 0deg);   
+}
+._65 {
+  background: conic-gradient(orange 234deg, #ededed 0deg);   
+}
+._66 {
+  background: conic-gradient(orange 237deg, #ededed 0deg);   
+}
+._67 {
+  background: conic-gradient(orange 241deg, #ededed 0deg);   
+}
+._68 {
+  background: conic-gradient(orange 244deg, #ededed 0deg);   
+}
+._69 {
+  background: conic-gradient(orange 248deg, #ededed 0deg);   
+}
+._70 {
+  background: conic-gradient(orange 252deg, #ededed 0deg);   
+}
+._71 {
+  background: conic-gradient(orange 255deg, #ededed 0deg);   
+}
+._72 {
+  background: conic-gradient(orange 259deg, #ededed 0deg);   
+}
+._73 {
+  background: conic-gradient(orange 262deg, #ededed 0deg);   
+}
+._74 {
+  background: conic-gradient(orange 266deg, #ededed 0deg);   
+}
+._75 {
+  background: conic-gradient(#00ff00 270deg, #ededed 0deg);   
+}
+._76 {
+  background: conic-gradient(#00ff00 273deg, #ededed 0deg);   
+}
+._77 {
+  background: conic-gradient(#00ff00 277deg, #ededed 0deg);   
+}
+._78 {
+  background: conic-gradient(#00ff00 280deg, #ededed 0deg);   
+}
+._79 {
+  background: conic-gradient(#00ff00 284deg, #ededed 0deg);   
+}
+._80 {
+  background: conic-gradient(#00ff00 288deg, #ededed 0deg);   
+}
+._81 {
+  background: conic-gradient(#00ff00 291deg, #ededed 0deg);   
+}
+._82 {
+  background: conic-gradient(#00ff00 295deg, #ededed 0deg);   
+}
+._83 {
+  background: conic-gradient(#00ff00 298deg, #ededed 0deg);   
+}
+._84 {
+  background: conic-gradient(#00ff00 302deg, #ededed 0deg);   
+}
+._85 {
+  background: conic-gradient(#00ff00 306deg, #ededed 0deg);   
+}
+._86 {
+  background: conic-gradient(#00ff00 309deg, #ededed 0deg);   
+}
+._87 {
+  background: conic-gradient(#00ff00 313deg, #ededed 0deg);   
+}
+._88 {
+  background: conic-gradient(#00ff00 316deg, #ededed 0deg);   
+}
+._89 {
+  background: conic-gradient(#00ff00 320deg, #ededed 0deg);   
+}
+._90 {
+  background: conic-gradient(#00ff00 324deg, #ededed 0deg);   
+}
+._91 {
+  background: conic-gradient(#00ff00 327deg, #ededed 0deg);   
+}
+._92 {
+  background: conic-gradient(#00ff00 331deg, #ededed 0deg);   
+}
+._93 {
+  background: conic-gradient(#00ff00 334deg, #ededed 0deg);    
+}
+._94 {
+  background: conic-gradient(#00ff00 338eg, #ededed 0deg);   
+}
+._95 {
+  background: conic-gradient(#00ff00 342deg, #ededed 0deg);   
+}
+._96 {
+  background: conic-gradient(#00ff00 345deg, #ededed 0deg);   
+}
+._97 {
+  background: conic-gradient(#00ff00 349deg, #ededed 0deg);   
+}
+._98 {
+  background: conic-gradient(#00ff00 352deg, #ededed 0deg);   
+}
+._99 {
+  background: conic-gradient(#00ff00 356deg, #ededed 0deg);   
+}
+._100 {
+  background: conic-gradient(#00ff00 360deg, #ededed 0deg);   
+}
+
+
+
+
+
+
+
+
+
+/* ------------------------------- end of analytics styling ---------------------------------- */
+
+
+/* ------------------------------- prediction styling ---------------------------------- */
+
+#prediction_card {
+  float: left;
+  width: 90%;
+  margin-top: 30px;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 50px; 
+}
+
+
+#prediction_input {
+  margin-left: 10px;
+  text-align: center;
+  height: 30%;
+  width: 20%;
+  outline: none;
+  border: none;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 1px solid #7d2ae8;  
+}
+
+#prediction_button {
+  width: 80px;
+  height: 35px;
+  border-radius:5px;
+  margin-left: 10px;
+  font-weight: 400;
+  background-color: #0d75ec;
+  border: none;
+  color: white;
+  outline: none;
+  border: none;
+}
+#prediction_button:hover  {
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  cursor: pointer; 
+}
+
+/* ------------------------------- end of prediction styling ---------------------------------- */
+
+/* ------------------------------- Dashboard styling ---------------------------------- */
+
+.radio_btn {
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+.radio {
+  width: 15px;
+  cursor: pointer;
+  height: 15px;
+}
+.dashboard_btn1 {
+  padding: 12px 20px;
+  font-size: 16px;
+  margin-right: 20px;
+  outline: none;
+  border: none;
+  background-color: #4070f4;
+  color: #fff;
+  border-radius: 6px;
+}
+.dashboard_btn2 {
+  padding: 12px 20px;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  background-color: grey; 
+  color: #fff;
+  border-radius: 6px;
+}
+
+.dashboard_btn1:hover ,.dashboard_btn2:hover {
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+
+
+/* ------------------------------- end of dashboard styling ---------------------------------- */
+
+/* ------------------------------- submit card styling ---------------------------------- */
+
+.submit_card {
+  text-align: center; 
+  z-index: 999;
+  width: 300px;
+  height: 300px;
+  border: 1px solid  white; 
+  border-radius: 10px;
+  position: absolute;
+  margin-left: 38%;
+  margin-top: 10%;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+.submit_card i {
+  z-index: 999;
+  font-size: 20px;
+  color: red;
+  float: right;
+  margin-top: 6px;
+  margin-right: 6px;
+}
+.submit_card i:hover {   
+  color: white;
+  background-color: red;
+  border-radius: 50%; 
+  cursor: pointer; 
+}
+
+/* ------------------------------- end of submit card styling ---------------------------------- */
    </style>
 <body> 
   <div class="sidebar">
@@ -367,15 +875,15 @@ td {
     </div>
     <ul class="nav-links">
       <li>
-        <a href= "#" >  
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
+        <a href= "dashboard" >  
+          <i class='bx bx-category-alt'></i>
+          <span class="link_name">Dashboard</span>  
         </a>
       </li>
       
       <li>
         <a href="{% url 'viewtable' %}">
-          <i class='bx bx-pie-chart-alt-2' ></i>
+          <i class='bx bx-table'></i>
           <span class="link_name">Timetable</span>
         </a>
         <ul class="sub-menu blank">
@@ -389,6 +897,24 @@ td {
         </a>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">Subjects</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="analytics"> 
+          <i class='bx bx-pie-chart-alt-2'></i>
+          <span class="link_name">Analytics</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Analytics</a></li> 
+        </ul>
+      </li>
+      <li>
+        <a href="prediction"> 
+          <i class='bx bx-line-chart'></i>
+          <span class="link_name">Prediction</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Prediction</a></li> 
         </ul>
       </li>
       <li>
@@ -412,8 +938,15 @@ td {
   </li>
 </ul>
   </div>
+  <div class="submit_card" id="submit_card" style="display: none;">     
+    <i class='bx bx-x' onclick="submit_card_hide()"></i> 
+    <div style="margin-top: 10%;position: relative;"> 
+      <img src="/media/gifs/sucess.gif" width="230px" height="230px">  
+    </div>
+    <p style="color: #00ff00;z-index: 999;"> <b>Response Recorded</b> </p> 
+  </div>
   <section class="home-section">
-    <div class="home-content">
+    <div class="home-content" >
       <i class='bx bx-menu' ></i>
       <span class="text">Sidebar</span>
       <i class='bx bxs-hot streak {{cls}}' style="font-size: 30px;" ><i style="font-size: 19px;font-weight: 500;" id="str">{{streak}}</i></i> 
@@ -438,6 +971,17 @@ td {
   sidebarBtn.addEventListener("click", ()=>{
     sidebar.classList.toggle("close");
   });
+
+  function submit_card_hide()
+  {
+    var x = document.getElementById('submit_card').style.display; 
+    if(x == 'block') 
+    document.getElementById('submit_card').style.display = 'none';
+    else 
+    document.getElementById('submit_card').style.display = 'block';   
+  }
+
+
   </script>
 </body>
 </html>

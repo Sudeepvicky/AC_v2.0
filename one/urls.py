@@ -31,6 +31,10 @@ urlpatterns = [
     path('update_timetable_subjects',views.update_timetable_subjects,name='update_timetable_subjects'),
     path('update_subjects',views.update_subjects,name='update_subjects'), 
     path('update_sem_subjects',views.update_sem_subjects,name='update_sem_subjects'),  
+    path('analytics',views.analytics,name='analytics'), 
+    path('prediction',views.prediction,name='prediction'),  
+    path('prediction_set',views.prediction_set,name='prediction_set'),  
+    path('dashboard',views.dashboard,name='dashboard'),   
 
 
 

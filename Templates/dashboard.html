@@ -1,0 +1,150 @@
+{% extends 'currsem.html' %} 
+
+{% block content %}
+<form action="#" method="post">
+    <div style="border: 1px solid grey;border-radius: 8px;width: 90%;margin-top: 40px;text-align: center;">  
+        <h1 style="text-align: center;color: #7d2ae8;">Choose the day</h1> <br>
+        <label class="radio_btn" onclick="dashboard_hide()"> 
+            <input type="radio" value="day_1" id="day_1" name="day" class="radio" onclick="dashboard_hide('day_1')">  
+            <span>Monday</span> 
+        </label>
+        <label class="radio_btn" onclick="dashboard_hide()">
+            <input type="radio" value="day_2" id="day_2" name="day" class="radio" onclick="dashboard_hide('day_2')">
+            <span>Tuesday </span>
+        </label>
+        <label class="radio_btn" onclick="dashboard_hide()">
+            <input type="radio" value="day_3" id="day_3" name="day" class="radio" onclick="dashboard_hide('day_3')">
+            <span>Wednesday</span> 
+        </label>
+        <label class="radio_btn" onclick="dashboard_hide()">
+            <input type="radio" value="day_4" id="day_4" name="day" class="radio" onclick="dashboard_hide('day_4')">
+            <span>Thrusday</span>
+        </label>
+        <label class="radio_btn" onclick="dashboard_hide()">
+            <input type="radio" value="day_5" id="day_5" name="day" class="radio" onclick="dashboard_hide('day_5')">
+            <span>Friday</span>
+        </label>
+        <label class="radio_btn" onclick="dashboard_hide()">
+            <input type="radio" value="day_6" id="day_6" name="day" class="radio" onclick="dashboard_hide('day_6')"> 
+            <span>Saturday</span> 
+        </label>
+        <br><br>
+    </div>
+    
+    <input type="hidden" id="present_day">
+
+    {% for k,v in data.items %} 
+    <div style="width: 90%;display: none;"  id="{{k}}">   
+        <br><br>
+        {% if v.msg != "" %}   
+            <h1 style="text-align: center;color: #00ff00;"> {{v.msg}} </h1> 
+        {% else %}
+            <table style="width: 60%;margin-left: auto;margin-right: auto;">  
+                <h1 style="text-align: center;"> {{k}} </h1> 
+                {% for k1,v1 in v.items  %}
+                    {% if v1 != "No period" and k1 != "msg" %}
+                        <tr> 
+                            <td style="width: 100px;font-size: 20px;">{{ k1 }}</td>
+                            <td style="width: 200px;font-size: 20px;"> {{ v1 }} </td>
+                            <td style="width: 50px;font-size: 20px;"> <input type="checkbox" id="{{k}}_{{k1}}" value="0" onclick="attend('{{k}}_{{k1}}')" style="cursor: pointer;width: 15px;height: 15px;" > </td>
+                        </tr> 
+                    {% endif %}
+                {% endfor %}   
+            </table>
+            <br><br>
+        {% endif %}  
+        {% if v.msg ==  "" %} 
+            <div style="float: right;width: 300px;margin-bottom: 50px;">   
+                <input type="button"  class="dashboard_btn1"  value="{{k}}" style="float: left;" onclick="submit_card_hide()" >  
+                <input type="button"  class="dashboard_btn2" disabled value="Submit" >  
+            </div> 
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    
+</form>
+
+<script>
+    function attend(id) 
+    {
+        var x = document.getElementById(id).value;
+        x = parseInt(x); 
+        if(x == 0)
+        {
+            document.getElementById(id).value = 1;
+        }
+        else
+        {
+            document.getElementById(id).value = 0;
+        }
+    }
+    function dashboard_hide(id)
+    {
+        x = document.getElementById(id).value; 
+        console.log(x); 
+        if(x == 'day_1')
+        {  
+            document.getElementById('present_day').value = 'monday';  
+            document.getElementById('Monday').style.display = 'block';
+            document.getElementById('Tuesday').style.display = 'none'; 
+            document.getElementById('Wednesday').style.display = 'none';
+            document.getElementById('Thrusday').style.display = 'none';
+            document.getElementById('Friday').style.display = 'none';
+            document.getElementById('Saturday').style.display = 'none';
+        }
+        if(x == 'day_2')
+        {
+            document.getElementById('present_day').value = 'tuesday'; 
+            document.getElementById('Monday').style.display = 'none';
+            document.getElementById('Tuesday').style.display = 'block'; 
+            document.getElementById('Wednesday').style.display = 'none';
+            document.getElementById('Thrusday').style.display = 'none';
+            document.getElementById('Friday').style.display = 'none';
+            document.getElementById('Saturday').style.display = 'none';
+        }
+        if(x == 'day_3')
+        {
+            document.getElementById('present_day').value = 'wednesday'; 
+            document.getElementById('Monday').style.display = 'none';
+            document.getElementById('Tuesday').style.display = 'none'; 
+            document.getElementById('Wednesday').style.display = 'block';
+            document.getElementById('Thrusday').style.display = 'none';
+            document.getElementById('Friday').style.display = 'none';
+            document.getElementById('Saturday').style.display = 'none';
+        }
+        if(x == 'day_4')
+        {
+            document.getElementById('present_day').value = 'thrusday'; 
+            document.getElementById('Monday').style.display = 'none';
+            document.getElementById('Tuesday').style.display = 'none'; 
+            document.getElementById('Wednesday').style.display = 'none';
+            document.getElementById('Thrusday').style.display = 'block';
+            document.getElementById('Friday').style.display = 'none';
+            document.getElementById('Saturday').style.display = 'none';
+        }
+        if(x == 'day_5')
+        {
+            document.getElementById('present_day').value = 'friday'; 
+            document.getElementById('Monday').style.display = 'none';
+            document.getElementById('Tuesday').style.display = 'none'; 
+            document.getElementById('Wednesday').style.display = 'none';
+            document.getElementById('Thrusday').style.display = 'none';
+            document.getElementById('Friday').style.display = 'block';
+            document.getElementById('Saturday').style.display = 'none';
+        }
+        if(x == 'day_6')
+        {
+            document.getElementById('present_day').value = 'saturday'; 
+            document.getElementById('Monday').style.display = 'none';
+            document.getElementById('Tuesday').style.display = 'none'; 
+            document.getElementById('Wednesday').style.display = 'none';
+            document.getElementById('Thrusday').style.display = 'none';
+            document.getElementById('Friday').style.display = 'none'; 
+            document.getElementById('Saturday').style.display = 'block';
+        }
+    }
+</script>
+
+
+{% endblock %}

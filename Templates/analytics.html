@@ -1,0 +1,74 @@
+{% extends 'currsem.html' %} 
+
+{% block content %}
+<br>
+<h1 style="color: #7d2ae8;text-align: center;margin-right: 100px;">analytics page</h1> 
+<div style="padding: 20px;width: 100%;display: grid;">   
+    <div>
+        <div class="analytic_container" onmouseenter ="progress('.{{total.pro}}','.{{total.pro_val}} ',' {{total.per}} ',' {{total.color}} ')">
+            <div class="container"  style="width: 350px;margin: 20px;"> 
+                <div class="circular-progress_totoal {{total.pro}} {{total.r}} " >  
+                    <span class="progress-value {{total.pro_val}} {{total.col}} "> {{total.per}} </span>   
+                </div> 
+                <span class="text">{{total.attend}}/{{total.total}}</span>
+                <span class="text">Total Percentage</span> 
+            </div>
+            <div style="width: 300px;padding: 20px 10px;float: right;margin: 20px;">
+                <br>
+                <p> Attended periods : {{total.attend}}</p>
+                <p> Total periods : {{total.total}} </p>
+                <P> Attendace : <span class="{{total.col}}" > {{total.msg}} </span></P>
+            </div>
+        </div>
+        
+    </div>    
+</div>
+<h1 style="color: #7d2ae8;text-align: center;margin-right: 100px;">Subjects wise Analysis</h1>  
+
+<div style="padding: 20px;width: 100%;">
+    {% for x,y in temp.items %} 
+    <div class="analytic_container" onmouseenter ="progress('.{{y.pro}}','.{{y.pro_val}} ',' {{y.per}} ','{{y.color}}')"> 
+        <h1 style="color: #0d75ec;text-align: center;">Subject : {{x}}</h1>  
+        <div class="container"  style="margin: 20px;">
+            <div class="circular-progress {{y.pro}} {{y.r}} ">     
+                <span class="progress-value {{y.pro_val}} {{y.col}} " > {{y.per}} </span>    
+            </div>
+            <span class="text">{{y.attend}}/{{y.total}}</span>
+            <span class="text">{{x}}</span>   
+        </div>
+        <div style="width: 300px;padding: 20px 10px;float: right;margin: 20px;">
+            <br>
+            <p> Attended periods : {{y.attend}}</p>
+            <p> Total periods : {{y.total}} </p>
+            <P> Attendace : <span class="{{y.col}}" > {{y.msg}} </span></P>
+        </div>
+    </div> 
+    {% endfor %}
+</div>
+<script>
+    function progress(cls,cls_val,val,col) 
+    {
+        if(val == 0)
+        return 
+        let circularProgress = document.querySelector(cls),
+        progressValue = document.querySelector(cls_val); 
+
+        let progressStartValue = 0,    
+            progressEndValue = parseInt(val),    
+            speed = 3;
+        progressValue.style.color = col;
+        let progress = setInterval(() => {
+            progressStartValue++; 
+
+            progressValue.textContent = `${progressStartValue}%` 
+            circularProgress.style.background = `conic-gradient(${col} ${progressStartValue * 3.6}deg, #ededed 0deg)`
+
+            if(progressStartValue == progressEndValue){
+                clearInterval(progress);
+            }    
+        }, speed);
+    }
+
+</script>
+
+{% endblock %}

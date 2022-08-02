@@ -404,7 +404,7 @@ def todo(request):
         tasks = dict(tasks) 
         d = list(tasks.values())  
         d = 6 - len(d)
-        data = {'tasks':tasks.values(),'usr':uname,'t':d} 
+        data = {'tasks':tasks.values(),'usr':uname,'t':d}   
     return render(request,'todo.html',data)  
 
 def todosubmit(request):
@@ -689,6 +689,7 @@ def update_sem_subjects(request):
     
     if total_periods == temp_total_periods:   
         streak = 0 
+        total = {'attend':0,'total':0,'percentage':0} 
         database.child(mail).child('semester').child(semester).child('streak').set(streak)    
         database.child(mail).child('semester').child(semester).child('subjects').child('total').set(total) 
     else:
@@ -740,11 +741,12 @@ def analytics(request):
             t.update({'total':full})   
             if full == 0:
                 msg = 'Classes not yet started' 
-            if int(per) == 0 and full !=0:
-                msg = 'Bad' 
             col = '' 
             color = ''
             r = '' 
+            if int(per) == 0 and full !=0:
+                msg = 'Bad' 
+                col = 'red' 
             if 0 < int(per) and int(per) <= 64:
                 r = '_'+ str(int(per)) 
                 col = 'red' 
@@ -975,6 +977,7 @@ def record_attendance(request):
     present_day = present_day.capitalize()
     present_day_temp = present_day 
     present_day = data[str(present_day)] 
+    print('present_day ---------------->  ',present_day)  
     s_check = [] 
     periods = []
     frequency = {} 
@@ -993,26 +996,32 @@ def record_attendance(request):
                 s_check.append(0)  
 
     for k,v in frequency.items():
-        attend = database.child(mail).child('semester').child(semester).child('subjects').child(k).get().val() 
-        attend['attend'] = int(attend['attend']) + int(v) 
+        attend = database.child(mail).child('semester').child(semester).child('subjects').child(k).get().val()
+        print('attend --> {} --> {} {}'.format(attend,k,v) ) 
+        attend = dict(attend) 
+        # print(k,'----',v,'---- -- attended -------------- ------------- --------------------> ',attend)   
+        attend['attend'] = int(attend['attend']) + int(v)  
         attend['total'] = int(attend['total']) + int(v)  
         attend['percentage'] = round((attend['attend'] / attend['total'])*100,2)
         database.child(mail).child('semester').child(semester).child('subjects').child(k).set(attend) 
 
-        total = database.child(mail).child('semester').child(semester).child('subjects').child('total').get().val() 
+        total = dict(database.child(mail).child('semester').child(semester).child('subjects').child('total').get().val()) 
         total['attend'] = int(total['attend']) + int(v)  
         total['total'] = int(total['total']) + int(v)  
         total['percentage'] = round((total['attend'] / total['total'])*100,2)
         database.child(mail).child('semester').child(semester).child('subjects').child('total').set(total)
 
     for k,v in not_frequency.items():
-        attend = database.child(mail).child('semester').child(semester).child('subjects').child(k).get().val() 
+        # print(k,'----',v,'---- not attended -------------- ------------- --------------------> ',attend)    
+        attend = database.child(mail).child('semester').child(semester).child('subjects').child(k).get().val()
+        print('not attend -- > {} --> {} {}'.format(attend,k,v) ) 
+        attend = dict(attend) 
         attend['attend'] = int(attend['attend'])  
         attend['total'] = int(attend['total']) + int(v)  
         attend['percentage'] = round((attend['attend'] / attend['total'])*100,2)
         database.child(mail).child('semester').child(semester).child('subjects').child(k).set(attend) 
 
-        total = database.child(mail).child('semester').child(semester).child('subjects').child('total').get().val() 
+        total = dict(database.child(mail).child('semester').child(semester).child('subjects').child('total').get().val())  
         total['attend'] = int(total['attend'])  
         total['total'] = int(total['total']) + int(v)  
         total['percentage'] = round((total['attend'] / total['total'])*100,2)

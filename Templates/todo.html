@@ -12,14 +12,22 @@
 
         <p style="text-align: center; color: #7d2ae8; padding-top: 10px;"><b id="task_info">Remaining {{t}} tasks</b></p>
         <div id="newtask">
-            <input type="text" id="taskinfo" placeholder="Task to do ...">  
+            <input type="text" id="taskinfo" placeholder="Task to do ..." maxlength="35">   
             
                 
-                <form action="todosubmit" id="form" method="post" >
-                    <button id="add" type="button" style="width: 40px;" >Add</button>
-                    <button id="save" type="submit" style="width: 50px;" onclick="submit_btn()">Save</button>  
-                    <input type="hidden" id="taskslist" name="taskslist"> 
-                    <input type="hidden" id="list_tag" value="list"> 
+                <form action="todosubmit" id="form" method="post" >   
+                    {% if t == 0 %}
+                        <button id="add" type="button" style="width: 40px;background-color: grey;" disabled>Add</button>   
+                        <button id="save" type="submit" style="width: 50px;" onclick="submit_btn()">Save</button>  
+                        <input type="hidden" id="taskslist" name="taskslist"> 
+                        <input type="hidden" id="list_tag" value="list"> 
+                    {% else %}
+                        <button id="add" type="button" style="width: 40px;" >Add</button>   
+                        <button id="save" type="submit" style="width: 50px;" onclick="submit_btn()">Save</button>  
+                        <input type="hidden" id="taskslist" name="taskslist"> 
+                        <input type="hidden" id="list_tag" value="list"> 
+                    {% endif  %} 
+                    
                 </form>  
             <input type="hidden" id="task_lenght" value="{{t}}"> 
             
@@ -68,7 +76,8 @@
         if(len == 1 && todoele.value.length != 0) 
         {
             var x = document.getElementsByClassName('list'); 
-            var i=0;
+            var i=0; 
+            console.log('todo remaining task 0 ... ')  
             for(i=0;i<x.length;i++)
             { 
                 if(todoele.value == x[i].innerHTML || todoele.value+'*' == x[i].innerHTML) 

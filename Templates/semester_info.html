@@ -20,7 +20,7 @@
         <form action="#" method="post" class="form">
             Time table updations : <input type="text" readonly value=" {{update}}" style="width: 30%;">
             <br><br>
-            <button type="button" onclick="view_subjects()"> view subjects</button> 
+            <button type="button" onclick="view_subjects()" id="view_btn"> view subjects</button> 
             <br><br> 
         </form>
         <div style="margin-left: 40%; width: 200px;display: grid;">
@@ -42,12 +42,14 @@
         var x = document.getElementsByClassName('view_subjects')
         if(x[0].style.display == 'none')
         {
+            document.getElementById('view_btn').innerHTML = 'Hide subjects';
             x[0].style.display = 'block'
             for(var i=1;i<x.length;i++)
             x[i].style.display = 'none'
         }
         else 
         {
+            document.getElementById('view_btn').innerHTML = 'View subjects'; 
             x[0].style.display = 'none' 
             for(var i=1;i<x.length;i++)
             x[i].style.display = 'block'

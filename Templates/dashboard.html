@@ -55,9 +55,8 @@
             <br><br>
         {% endif %}  
         {% if v.msg ==  "" %} 
-            <div style="float: right;width: 300px;margin-bottom: 50px;">   
-                <input type="button" id="{{k}}_btn1" class="dashboard_btn1"  value="Add" style="float: left;" onclick="submit_card_hide1('{{k}}_btn2')" >  
-                <input type="submit" id="{{k}}_btn2" class="dashboard_btn2" disabled value="Submit" >  
+            <div style="float: right;width: 300px;margin-bottom: 50px;">
+                <input type="submit" id="{{k}}_btn2" class="dashboard_btn2"  value="Submit" style="float: right;background-color: #4070f4;" onclick="submit_card_hide1()">   
             </div> 
         {% endif %}
     </div>
@@ -67,10 +66,8 @@
 </form>
 
 <script>
-    function submit_card_hide1(id)
+    function submit_card_hide1() 
     {
-        document.getElementById(id).disabled = false;
-        document.getElementById(id).style.background = '#4070f4'
         document.getElementById('submit_card').style.display = 'block';    
     }
     function attend(id) 
